@@ -1,7 +1,6 @@
 import React, { createContext, useContext, useState, useCallback, type Dispatch, type SetStateAction } from 'react';
 import type { Situation, DesiredOutcome, Reply } from '../types';
 import { useTheme } from '../hooks/useTheme';
-import { useSettings } from '../hooks/useSettings';
 import { usePlaybooks } from '../hooks/usePlaybooks';
 import { useGeneration } from '../hooks/useGeneration';
 import { useToast } from '../hooks/useToast';
@@ -12,12 +11,6 @@ interface AppContextValue {
   // Theme
   theme: 'light' | 'dark';
   toggleTheme: () => void;
-
-  // Settings
-  apiKey: string;
-  hasApiKey: boolean;
-  saveApiKey: (key: string) => void;
-  removeApiKey: () => void;
 
   // Playbooks
   playbooks: ReturnType<typeof usePlaybooks>['playbooks'];
@@ -50,8 +43,6 @@ interface AppContextValue {
   refineReply: (replyId: string, action: import('../types').QuickAction) => Promise<void>;
 
   // UI state
-  isSettingsOpen: boolean;
-  setIsSettingsOpen: Dispatch<SetStateAction<boolean>>;
   isSidebarOpen: boolean;
   setIsSidebarOpen: Dispatch<SetStateAction<boolean>>;
 
@@ -67,7 +58,6 @@ const AppContext = createContext<AppContextValue | null>(null);
 
 export function AppProvider({ children }: { children: React.ReactNode }) {
   const { theme, toggleTheme } = useTheme();
-  const { apiKey, saveApiKey, removeApiKey, hasApiKey } = useSettings();
   const {
     playbooks,
     activePlaybook,
@@ -88,19 +78,15 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   const [writingExamples, setWritingExamples] = useState<string[]>([]);
 
   // ─── UI State ───────────────────────────────────────────────────────────────
-  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   // ─── Sync playbook selection into workspace ─────────────────────────────────
   const handleSelectPlaybook = useCallback(
     (id: string) => {
       selectPlaybook(id);
-      
-      // Find the playbook
+
       const pb = playbooks.find((p) => p.id === id);
       if (pb) {
-        // Break out of React's synchronous batching to guarantee these state
-        // updates apply reliably against the fresh UI state.
         setTimeout(() => {
           setSituation(pb.situation || 'payment-invoice');
           setDesiredOutcome(pb.desiredOutcome || 'get-a-response');
@@ -125,11 +111,6 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
 
   // ─── Generation ─────────────────────────────────────────────────────────────
   const generate = useCallback(async () => {
-    if (!hasApiKey) {
-      setIsSettingsOpen(true);
-      addToast('error', 'Please add your Gemini API key in Settings first.');
-      return;
-    }
     if (!incomingMessage.trim()) {
       addToast('error', 'Please paste the incoming message you want to reply to.');
       return;
@@ -140,24 +121,19 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       desiredOutcome,
       role,
       writingExamples,
-      apiKey,
     });
-  }, [hasApiKey, incomingMessage, situation, desiredOutcome, role, writingExamples, apiKey, generateReplies, addToast]);
+  }, [incomingMessage, situation, desiredOutcome, role, writingExamples, generateReplies, addToast]);
 
   const refineReply = useCallback(
     async (replyId: string, action: import('../types').QuickAction) => {
-      await refineReplyBase(replyId, action, situation, desiredOutcome, apiKey);
+      await refineReplyBase(replyId, action, situation, desiredOutcome);
     },
-    [refineReplyBase, situation, desiredOutcome, apiKey]
+    [refineReplyBase, situation, desiredOutcome]
   );
 
   const value: AppContextValue = {
     theme,
     toggleTheme,
-    apiKey,
-    hasApiKey,
-    saveApiKey,
-    removeApiKey,
     playbooks,
     activePlaybook,
     activePlaybookId,
@@ -182,8 +158,6 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     generationError,
     generate,
     refineReply,
-    isSettingsOpen,
-    setIsSettingsOpen,
     isSidebarOpen,
     setIsSidebarOpen,
     toasts,

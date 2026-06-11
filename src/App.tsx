@@ -7,7 +7,6 @@ import { RoleInput } from './components/workspace/RoleInput';
 import { WritingExamples } from './components/workspace/WritingExamples';
 import { GenerateButton } from './components/workspace/GenerateButton';
 import { ReplyGrid } from './components/results/ReplyGrid';
-import { SettingsPanel } from './components/settings/SettingsPanel';
 import { ToastContainer } from './components/ui/Toast';
 import { AppProvider, useApp } from './context/AppContext';
 
@@ -67,7 +66,6 @@ function AppShell() {
       </div>
 
       {/* Overlays */}
-      <SettingsPanel />
       <ToastContainer toasts={toasts} onRemove={removeToast} />
     </div>
   );

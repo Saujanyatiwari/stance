@@ -1,9 +1,9 @@
-import { Settings, Menu, Zap } from 'lucide-react';
+import { Menu, Zap } from 'lucide-react';
 import { ThemeToggle } from './ThemeToggle';
 import { useApp } from '../../context/AppContext';
 
 export function Header() {
-  const { setIsSettingsOpen, setIsSidebarOpen, hasApiKey } = useApp();
+  const { setIsSidebarOpen } = useApp();
 
   return (
     <header className="h-16 border-b border-border bg-surface/80 backdrop-blur-sm flex items-center justify-between px-4 md:px-6 shrink-0 z-30 relative">
@@ -28,34 +28,9 @@ export function Header() {
         </div>
       </div>
 
-      {/* Right: API key status + theme toggle + settings */}
+      {/* Right: Theme toggle */}
       <div className="flex items-center gap-1">
-        {!hasApiKey && (
-          <button
-            onClick={() => setIsSettingsOpen(true)}
-            className="hidden sm:flex items-center gap-1.5 text-xs text-amber-400 bg-amber-400/10 border border-amber-400/20 px-3 py-1.5 rounded-lg hover:bg-amber-400/20 transition-colors mr-2"
-          >
-            <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
-            Add API key to start
-          </button>
-        )}
-
-        {hasApiKey && (
-          <div className="hidden sm:flex items-center gap-1.5 text-xs text-emerald-400 bg-emerald-400/10 border border-emerald-400/20 px-3 py-1.5 rounded-lg mr-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-            API key active
-          </div>
-        )}
-
         <ThemeToggle />
-
-        <button
-          onClick={() => setIsSettingsOpen(true)}
-          aria-label="Open settings"
-          className="p-2 rounded-xl text-text-muted hover:text-text-primary hover:bg-surface-2 transition-colors"
-        >
-          <Settings size={18} />
-        </button>
       </div>
     </header>
   );

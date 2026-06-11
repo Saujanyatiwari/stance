@@ -10,7 +10,6 @@ interface GenerationInput {
   desiredOutcome: DesiredOutcome;
   role: string;
   writingExamples: string[];
-  apiKey: string;
 }
 
 export function useGeneration() {
@@ -32,7 +31,7 @@ export function useGeneration() {
         writingExamples: input.writingExamples.length > 0 ? input.writingExamples : undefined,
       });
 
-      const response = await generateReplies(prompt, input.apiKey);
+      const response = await generateReplies(prompt);
 
       const mapped: Reply[] = response.replies.map((r, i) => ({
         id: `reply-${Date.now()}-${i}`,
@@ -54,13 +53,11 @@ export function useGeneration() {
       replyId: string,
       action: QuickAction,
       situation: Situation,
-      desiredOutcome: DesiredOutcome,
-      apiKey: string
+      desiredOutcome: DesiredOutcome
     ) => {
       const target = replies.find((r) => r.id === replyId);
       if (!target) return;
 
-      // Mark the specific reply as loading by temporarily tagging it
       setReplies((prev) =>
         prev.map((r) =>
           r.id === replyId ? { ...r, title: r.title + ' (refining…)' } : r
@@ -76,7 +73,7 @@ export function useGeneration() {
           desiredOutcome,
         });
 
-        const response = await generateReplies(prompt, apiKey);
+        const response = await generateReplies(prompt);
         const refined = response.replies[0];
 
         if (refined) {
@@ -89,12 +86,9 @@ export function useGeneration() {
           );
         }
       } catch (err) {
-        // Restore original title on error
         setReplies((prev) =>
           prev.map((r) =>
-            r.id === replyId
-              ? { ...r, title: target.title }
-              : r
+            r.id === replyId ? { ...r, title: target.title } : r
           )
         );
         setError(parseApiError(err));

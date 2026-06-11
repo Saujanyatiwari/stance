@@ -2,9 +2,7 @@ import { Sparkles, AlertCircle } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
 
 export function GenerateButton() {
-  const { generate, isLoading, hasApiKey, incomingMessage, generationError } = useApp();
-
-
+  const { generate, isLoading, incomingMessage, generationError } = useApp();
 
   return (
     <div className="space-y-3 pt-2">
@@ -43,23 +41,7 @@ export function GenerateButton() {
         )}
       </button>
 
-      {!hasApiKey && (
-        <div className="flex items-start gap-2 px-3 py-2.5 rounded-xl bg-amber-400/5 border border-amber-400/20">
-          <AlertCircle size={14} className="text-amber-400 shrink-0 mt-0.5" />
-          <p className="text-xs text-amber-300 leading-relaxed">
-            Add your Gemini API key in{' '}
-            <button
-              className="underline underline-offset-2 hover:text-amber-200 transition-colors"
-              onClick={() => document.getElementById('settings-trigger')?.click()}
-            >
-              Settings
-            </button>{' '}
-            to start generating.
-          </p>
-        </div>
-      )}
-
-      {!incomingMessage.trim() && hasApiKey && (
+      {!incomingMessage.trim() && (
         <p className="text-xs text-text-muted text-center">Paste an incoming message above to get started.</p>
       )}
 

@@ -28,7 +28,6 @@ export function storageRemove(key: string): void {
 
 export const STORAGE_KEYS = {
   PLAYBOOKS: 'playbooks',
-  API_KEY: 'api_key',
   THEME: 'theme',
   WRITING_EXAMPLES: 'writing_examples',
 } as const;
