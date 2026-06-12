@@ -16,7 +16,7 @@ export function storageSet<T>(key: string, value: T): void {
   try {
     localStorage.setItem(PREFIX + key, JSON.stringify(value));
   } catch {
-    console.error('[ReplyForge] Failed to write to localStorage');
+    console.error('[Stance] Failed to write to localStorage');
   }
 }
 

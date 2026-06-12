@@ -22,7 +22,7 @@ export function Header() {
             <Zap size={15} className="text-white" fill="white" />
           </div>
           <div className="leading-none">
-            <span className="text-base font-bold text-text-primary tracking-tight">ReplyForge</span>
+            <span className="text-base font-bold text-text-primary tracking-tight">Stance</span>
             <p className="text-[10px] text-text-muted hidden sm:block mt-0.5">Handle difficult conversations with confidence</p>
           </div>
         </div>
