@@ -46,7 +46,6 @@ export interface Playbook {
 }
 
 export interface Settings {
-  apiKey: string;
   theme: Theme;
 }
 
