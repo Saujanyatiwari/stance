@@ -1,8 +1,8 @@
 import { useState, useRef, useEffect } from 'react';
-import { MessageSquare } from 'lucide-react';
 import { Header } from './components/layout/Header';
 import { ToastContainer } from './components/ui/Toast';
 import { AppProvider, useApp } from './context/AppContext';
+import { ReplyGrid } from './components/results/ReplyGrid';
 import { IncomingMessage } from './components/workspace/IncomingMessage';
 import { EmailThreadContext } from './components/workspace/EmailThreadContext';
 import { SituationSelector } from './components/workspace/SituationSelector';
@@ -58,20 +58,8 @@ function DragHandle({ onMouseDown }: { onMouseDown: (e: React.MouseEvent) => voi
 
 function RightPanel() {
   return (
-    <div className="flex-1 bg-[#0a0a0a] flex items-center justify-center min-h-[50vh] md:min-h-0 md:overflow-y-auto">
-      <div className="flex flex-col items-center gap-3 text-center">
-        <div className="w-11 h-11 bg-[#141414] border border-[#1e1e1e] rounded-[10px] flex items-center justify-center">
-          <MessageSquare size={18} color="#2a2a2a" />
-        </div>
-        <div>
-          <p className="text-[15px] font-semibold mb-2" style={{ color: '#333333' }}>
-            Your replies will appear here
-          </p>
-          <p className="text-[12px] leading-[1.65] max-w-[200px]" style={{ color: '#2a2a2a' }}>
-            Fill in the details on the left and hit Generate Replies
-          </p>
-        </div>
-      </div>
+    <div className="flex-1 bg-[#0a0a0a] min-h-[50vh] md:min-h-0 md:overflow-y-auto">
+      <ReplyGrid />
     </div>
   );
 }
