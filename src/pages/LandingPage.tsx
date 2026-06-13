@@ -176,9 +176,9 @@ export default function LandingPage() {
           <h1
             style={{
               color: '#fff',
-              fontSize: '40px',
+              fontSize: '30px',
               fontWeight: 700,
-              margin: '0 0 10px 0',
+              margin: '0 0 8px 0',
               lineHeight: 1.15,
               letterSpacing: '-0.5px',
             }}
@@ -189,7 +189,7 @@ export default function LandingPage() {
               style={{
                 display: 'inline-block',
                 width: '3px',
-                height: '38px',
+                height: '28px',
                 background: '#e03030',
                 marginLeft: '2px',
                 verticalAlign: 'middle',
@@ -201,7 +201,7 @@ export default function LandingPage() {
           <p
             style={{
               color: '#555',
-              fontSize: '14px',
+              fontSize: '12px',
               margin: 0,
               lineHeight: 1.65,
               textAlign: 'center',
@@ -214,7 +214,7 @@ export default function LandingPage() {
         {/* Laptop frame */}
         <div
           style={{
-            maxWidth: '1080px',
+            maxWidth: '860px',
             width: '100%',
             padding: '0 10px',
             WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 55%, transparent 100%)',
