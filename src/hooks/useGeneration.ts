@@ -40,6 +40,7 @@ export function useGeneration() {
 
       setReplies(mapped);
       setRiskAnalysis(response.risk_analysis);
+      window.umami?.track('generate_replies', { situation: input.situation, hasWritingExamples: input.writingExamples.length > 0 });
     } catch (err) {
       setError(parseApiError(err));
     } finally {
