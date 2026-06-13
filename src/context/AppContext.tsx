@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useCallback, type Dispatch, type SetStateAction } from 'react';
+import React, { createContext, useContext, useState, useCallback } from 'react';
 import type { Situation, DesiredOutcome, Reply } from '../types';
 import { useTheme } from '../hooks/useTheme';
 import { usePlaybooks } from '../hooks/usePlaybooks';
@@ -42,10 +42,6 @@ interface AppContextValue {
   generate: () => Promise<void>;
   refineReply: (replyId: string, action: import('../types').QuickAction) => Promise<void>;
 
-  // UI state
-  isSidebarOpen: boolean;
-  setIsSidebarOpen: Dispatch<SetStateAction<boolean>>;
-
   // Toasts
   toasts: ReturnType<typeof useToast>['toasts'];
   addToast: ReturnType<typeof useToast>['addToast'];
@@ -77,9 +73,6 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   const [role, setRole] = useState('');
   const [writingExamples, setWritingExamples] = useState<string[]>([]);
 
-  // ─── UI State ───────────────────────────────────────────────────────────────
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-
   // ─── Sync playbook selection into workspace ─────────────────────────────────
   const handleSelectPlaybook = useCallback(
     (id: string) => {
@@ -93,7 +86,6 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
           setWritingExamples(pb.writingExamples ? [...pb.writingExamples] : []);
         }, 0);
       }
-      setIsSidebarOpen(false);
     },
     [selectPlaybook, playbooks]
   );
@@ -158,8 +150,6 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     generationError,
     generate,
     refineReply,
-    isSidebarOpen,
-    setIsSidebarOpen,
     toasts,
     addToast,
     removeToast,

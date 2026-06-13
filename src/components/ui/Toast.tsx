@@ -10,13 +10,13 @@ interface ToastProps {
 const icons = {
   success: <CheckCircle size={16} className="text-emerald-400 shrink-0" />,
   error: <XCircle size={16} className="text-red-400 shrink-0" />,
-  info: <Info size={16} className="text-indigo-400 shrink-0" />,
+  info: <Info size={16} className="text-[#7a9fff] shrink-0" />,
 };
 
 const styles = {
   success: 'border-emerald-500/30 bg-emerald-500/10',
   error: 'border-red-500/30 bg-red-500/10',
-  info: 'border-indigo-500/30 bg-indigo-500/10',
+  info: 'border-[rgba(122,159,255,0.3)] bg-[rgba(122,159,255,0.08)]',
 };
 
 function Toast({ toast, onRemove }: ToastProps) {

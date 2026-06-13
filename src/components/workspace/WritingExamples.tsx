@@ -40,8 +40,8 @@ export function WritingExamples() {
               key={i}
               className="group flex items-start gap-2 bg-surface-2 border border-border rounded-xl px-3 py-2.5"
             >
-              <div className="shrink-0 w-5 h-5 rounded-md bg-indigo-500/15 flex items-center justify-center mt-0.5">
-                <span className="text-[10px] font-bold text-indigo-400">{i + 1}</span>
+              <div className="shrink-0 w-5 h-5 rounded-md bg-[rgba(232,56,42,0.1)] flex items-center justify-center mt-0.5">
+                <span className="text-[10px] font-bold text-[#e8382a]">{i + 1}</span>
               </div>
               <p className="text-xs text-text-primary flex-1 leading-relaxed whitespace-pre-wrap line-clamp-3">
                 {ex}
@@ -85,7 +85,7 @@ export function WritingExamples() {
           onKeyDown={handleKeyDown}
           placeholder="Paste a reply you've written before…"
           rows={3}
-          className="w-full bg-surface-2 border border-border rounded-xl px-4 py-3 text-xs text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500/50 resize-none transition-all leading-relaxed"
+          className="w-full bg-surface-2 border border-border rounded-xl px-4 py-3 text-xs text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-[rgba(232,56,42,0.15)] focus:border-[#e8382a] resize-none transition-all leading-relaxed"
         />
         <button
           onClick={handleAdd}
@@ -93,7 +93,7 @@ export function WritingExamples() {
           className={cn(
             'flex items-center gap-1.5 text-xs font-medium px-3 py-2 rounded-lg transition-all',
             draft.trim()
-              ? 'text-indigo-400 bg-indigo-500/10 border border-indigo-500/20 hover:bg-indigo-500/20'
+              ? 'text-[#e8382a] bg-[rgba(232,56,42,0.08)] border border-[rgba(232,56,42,0.15)] hover:bg-[rgba(232,56,42,0.12)]'
               : 'text-text-muted bg-surface-2 border border-border opacity-50 cursor-not-allowed'
           )}
         >

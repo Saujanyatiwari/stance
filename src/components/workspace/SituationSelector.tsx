@@ -17,7 +17,7 @@ export function SituationSelector() {
           id="situation-select"
           value={situation}
           onChange={(e) => setSituation(e.target.value as typeof situation)}
-          className="w-full appearance-none bg-surface-2 border border-border rounded-xl px-4 py-2.5 text-sm text-text-primary focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500/50 transition-all pr-10 cursor-pointer"
+          className="w-full appearance-none bg-surface-2 border border-border rounded-xl px-4 py-2.5 text-sm text-text-primary focus:outline-none focus:ring-2 focus:ring-[rgba(232,56,42,0.15)] focus:border-[#e8382a] transition-all pr-10 cursor-pointer"
         >
           {SITUATION_OPTIONS.map((opt) => (
             <option key={opt.value} value={opt.value}>

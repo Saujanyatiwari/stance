@@ -5,7 +5,7 @@ import { EmptyState } from '../ui/EmptyState';
 import { RiskMeter } from './RiskMeter';
 
 export function ReplyGrid() {
-  const { replies, riskAnalysis, isLoading, setIsSidebarOpen } = useApp();
+  const { replies, riskAnalysis, isLoading } = useApp();
 
   if (isLoading) {
     return (
@@ -28,7 +28,7 @@ export function ReplyGrid() {
 
   if (replies.length === 0) {
     return (
-      <EmptyState onGetStarted={() => setIsSidebarOpen(true)} />
+      <EmptyState onGetStarted={() => {}} />
     );
   }
 
@@ -36,7 +36,7 @@ export function ReplyGrid() {
     <div className="space-y-5">
       {/* Section label */}
       <div className="flex items-center gap-2">
-        <Eye size={15} className="text-indigo-400" />
+        <Eye size={15} className="text-[#888888]" />
         <h2 className="text-sm font-semibold text-text-primary">
           Generated Replies
         </h2>

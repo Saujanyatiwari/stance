@@ -1,8 +1,8 @@
-# ReplyForge
+# Stance
 
 > **Handle difficult professional conversations with confidence.**
 
-ReplyForge is a private, browser-only communication toolkit that helps you write confident, natural replies for high-stakes professional conversations — payment follow-ups, salary negotiations, client rejections, complaints, and more.
+Stance is a private, browser-only communication toolkit that helps you write confident, natural replies for high-stakes professional conversations — payment follow-ups, salary negotiations, client rejections, complaints, and more.
 
 Built with React, TypeScript, Vite, Tailwind CSS, and the Gemini API. Everything runs in your browser. No backend. No database. No data leaves your machine except to the Gemini API.
 
@@ -15,7 +15,6 @@ Built with React, TypeScript, Vite, Tailwind CSS, and the Gemini API. Everything
 - **Smart Style Matching** — Add your own writing examples for personalised tone
 - **Playbooks** — Save and load situational templates
 - **Conversation Observations** — Plain-language tone insights, no AI scores
-- **Dark / Light Mode** — Persisted across sessions
 - **Fully Private** — API key and all data stored only in your browser
 
 ---
@@ -32,8 +31,8 @@ Built with React, TypeScript, Vite, Tailwind CSS, and the Gemini API. Everything
 
 ```bash
 # Clone the repository
-git clone https://github.com/YOUR_USERNAME/replyforge.git
-cd replyforge
+git clone https://github.com/YOUR_USERNAME/stance.git
+cd stance
 
 # Install dependencies
 npm install
@@ -65,11 +64,11 @@ npm run preview
 
 ## 🔑 Gemini API Setup
 
-ReplyForge uses the [Google Gemini API](https://ai.google.dev/) (`gemini-2.0-flash` model) directly from the browser.
+Stance uses the [Google Gemini API](https://ai.google.dev/) (`gemini-2.0-flash` model) directly from the browser.
 
 1. Go to [Google AI Studio → API Keys](https://aistudio.google.com/app/apikey)
 2. Create a new API key (free tier available)
-3. Open ReplyForge in your browser
+3. Open Stance in your browser
 4. Click the **Settings** icon (⚙️) in the top-right header
 5. Paste your API key and click **Save API Key**
 
@@ -109,7 +108,7 @@ The app is a pure static SPA — deploy the `dist/` folder to any static hosting
 ```
 src/
 ├── components/
-│   ├── layout/        # Header, Sidebar, ThemeToggle
+│   ├── layout/        # Header, ThemeToggle
 │   ├── workspace/     # IncomingMessage, SituationSelector, OutcomeSelector, RoleInput, WritingExamples, GenerateButton
 │   ├── results/       # ReplyCard, ReplyGrid, RiskMeter
 │   ├── playbooks/     # SavePlaybookModal

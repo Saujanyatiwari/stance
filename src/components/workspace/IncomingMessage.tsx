@@ -16,7 +16,7 @@ export function IncomingMessage() {
         onChange={(e) => setIncomingMessage(e.target.value)}
         placeholder="Paste the message here…"
         rows={6}
-        className="w-full bg-surface-2 border border-border rounded-xl px-4 py-3 text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500/50 resize-none transition-all leading-relaxed"
+        className="w-full bg-surface-2 border border-border rounded-xl px-4 py-3 text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-[rgba(232,56,42,0.15)] focus:border-[#e8382a] resize-none transition-all leading-relaxed"
       />
       {incomingMessage.length > 0 && (
         <p className="text-xs text-text-muted text-right">{incomingMessage.length} characters</p>

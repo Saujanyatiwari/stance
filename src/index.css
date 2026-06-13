@@ -4,31 +4,20 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ─── CSS Custom Properties ────────────────────────────────────────────────── */
+/* ─── CSS Custom Properties ─────────────────────────────────── */
 
 :root {
-  --color-bg:           #F9FAFB;
-  --color-surface:      #FFFFFF;
-  --color-surface-2:    #F3F4F6;
-  --color-border:       #E5E7EB;
-  --color-text-primary: #111827;
-  --color-text-muted:   #6B7280;
-  --color-primary:      #6366F1;
-  --color-primary-hover:#4F46E5;
+  --color-bg:           #0d0d0d;
+  --color-surface:      #111111;
+  --color-surface-2:    #1a1a1a;
+  --color-border:       #1e1e1e;
+  --color-text-primary: #f2f2f2;
+  --color-text-muted:   #888888;
+  --color-primary:      #e8382a;
+  --color-primary-hover:#c5251a;
 }
 
-:root.dark {
-  --color-bg:           #0F1117;
-  --color-surface:      #1A1D27;
-  --color-surface-2:    #222535;
-  --color-border:       #2D3148;
-  --color-text-primary: #F1F5F9;
-  --color-text-muted:   #8892A4;
-  --color-primary:      #818CF8;
-  --color-primary-hover:#6366F1;
-}
-
-/* ─── Base Reset ────────────────────────────────────────────────────────────── */
+/* ─── Base Reset ─────────────────────────────────────────────── */
 
 *, *::before, *::after {
   box-sizing: border-box;
@@ -37,19 +26,17 @@
 html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  scroll-behavior: smooth;
 }
 
 body {
   margin: 0;
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
   background-color: var(--color-bg);
   color: var(--color-text-primary);
-  line-height: 1.6;
-  transition: background-color 0.2s ease, color 0.2s ease;
+  line-height: 1.65;
 }
 
-/* ─── Scrollbar Styling ─────────────────────────────────────────────────────── */
+/* ─── Scrollbar ──────────────────────────────────────────────── */
 
 ::-webkit-scrollbar {
   width: 5px;
@@ -59,21 +46,21 @@ body {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--color-border);
+  background: #1e1e1e;
   border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-text-muted);
+  background: #2a2a2a;
 }
 
-/* ─── Select Styling ────────────────────────────────────────────────────────── */
+/* ─── Select Styling ─────────────────────────────────────────── */
 
 select option {
   background: var(--color-surface);
   color: var(--color-text-primary);
 }
 
-/* ─── Animations ────────────────────────────────────────────────────────────── */
+/* ─── Animations ─────────────────────────────────────────────── */
 
 @keyframes fadeIn {
   from { opacity: 0; }
@@ -82,12 +69,12 @@ select option {
 
 @keyframes slideUp {
   from { opacity: 0; transform: translateY(10px); }
-  to   { opacity: 1; transform: translateY(0);    }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes slideInRight {
   from { opacity: 0; transform: translateX(20px); }
-  to   { opacity: 1; transform: translateX(0);    }
+  to   { opacity: 1; transform: translateX(0); }
 }
 
 @keyframes pulse-soft {
@@ -95,27 +82,28 @@ select option {
   50%       { opacity: 0.5; }
 }
 
-.animate-fade-in       { animation: fadeIn 0.25s ease forwards; }
-.animate-slide-up      { animation: slideUp 0.3s ease forwards; }
-.animate-slide-in-right{ animation: slideInRight 0.3s ease forwards; }
+.animate-fade-in        { animation: fadeIn 0.25s ease forwards; }
+.animate-slide-up       { animation: slideUp 0.3s ease forwards; }
+.animate-slide-in-right { animation: slideInRight 0.3s ease forwards; }
 
-/* ─── Focus Styles ──────────────────────────────────────────────────────────── */
+/* ─── Focus Styles ───────────────────────────────────────────── */
 
 :focus-visible {
   outline: 2px solid var(--color-primary);
   outline-offset: 2px;
 }
 
-/* ─── Tailwind Component Layer ──────────────────────────────────────────────── */
+/* ─── Tailwind Component Layer ───────────────────────────────── */
 
 @layer components {
   .card {
-    @apply bg-surface border border-border rounded-2xl shadow-sm;
+    @apply bg-surface border border-border rounded-[13px];
   }
 
   .input-base {
-    @apply bg-surface-2 border border-border rounded-xl px-4 py-2.5 text-sm text-text-primary
-           placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-indigo-500/40
-           focus:border-indigo-500/50 transition-all;
+    @apply bg-surface-2 border border-border rounded-[8px] px-4 py-2.5 text-sm text-text-primary
+           placeholder:text-[#2e2e2e] focus:outline-none
+           focus:ring-2 focus:ring-[rgba(232,56,42,0.15)]
+           focus:border-[#e8382a] transition-all;
   }
 }

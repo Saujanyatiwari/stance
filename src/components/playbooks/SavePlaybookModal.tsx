@@ -57,7 +57,7 @@ export function SavePlaybookModal({ isOpen, onClose, initialSituation, initialOu
             value={name}
             onChange={(e) => { setName(e.target.value); setError(''); }}
             placeholder="e.g. Late Payment Reminder"
-            className="w-full bg-surface-2 border border-border rounded-xl px-4 py-2.5 text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500/50 transition-all"
+            className="w-full bg-surface-2 border border-border rounded-xl px-4 py-2.5 text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-[rgba(232,56,42,0.15)] focus:border-[#e8382a] transition-all"
             autoFocus
           />
           {error && <p className="text-xs text-red-400 mt-1.5">{error}</p>}
@@ -71,7 +71,7 @@ export function SavePlaybookModal({ isOpen, onClose, initialSituation, initialOu
             <select
               value={situation}
               onChange={(e) => setSituation(e.target.value as Situation)}
-              className="w-full appearance-none bg-surface-2 border border-border rounded-xl px-4 py-2.5 text-sm text-text-primary focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all pr-10 cursor-pointer"
+              className="w-full appearance-none bg-surface-2 border border-border rounded-xl px-4 py-2.5 text-sm text-text-primary focus:outline-none focus:ring-2 focus:ring-[rgba(232,56,42,0.15)] transition-all pr-10 cursor-pointer"
             >
               {SITUATION_OPTIONS.map((opt) => (
                 <option key={opt.value} value={opt.value}>{opt.label}</option>
@@ -92,7 +92,7 @@ export function SavePlaybookModal({ isOpen, onClose, initialSituation, initialOu
             <select
               value={outcome}
               onChange={(e) => setOutcome(e.target.value as DesiredOutcome)}
-              className="w-full appearance-none bg-surface-2 border border-border rounded-xl px-4 py-2.5 text-sm text-text-primary focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all pr-10 cursor-pointer"
+              className="w-full appearance-none bg-surface-2 border border-border rounded-xl px-4 py-2.5 text-sm text-text-primary focus:outline-none focus:ring-2 focus:ring-[rgba(232,56,42,0.15)] transition-all pr-10 cursor-pointer"
             >
               {OUTCOME_OPTIONS.map((opt) => (
                 <option key={opt.value} value={opt.value}>{opt.label}</option>

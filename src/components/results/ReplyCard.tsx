@@ -43,15 +43,15 @@ export function ReplyCard({ reply, index }: ReplyCardProps) {
   };
 
   const cardAccents = [
-    'border-indigo-500/20 hover:border-indigo-500/40',
-    'border-violet-500/20 hover:border-violet-500/40',
-    'border-purple-500/20 hover:border-purple-500/40',
+    'border-[rgba(232,56,42,0.2)] hover:border-[rgba(232,56,42,0.4)]',
+    'border-[rgba(122,159,255,0.18)] hover:border-[rgba(122,159,255,0.35)]',
+    'border-[rgba(48,200,140,0.18)] hover:border-[rgba(48,200,140,0.35)]',
   ];
 
   const badgeColors = [
-    'bg-indigo-500/10 text-indigo-400',
-    'bg-violet-500/10 text-violet-400',
-    'bg-purple-500/10 text-purple-400',
+    'bg-[rgba(232,56,42,0.1)] text-[#e8382a]',
+    'bg-[rgba(122,159,255,0.1)] text-[#7a9fff]',
+    'bg-[rgba(48,200,140,0.1)] text-[#30c88c]',
   ];
 
   return (
@@ -85,7 +85,7 @@ export function ReplyCard({ reply, index }: ReplyCardProps) {
             'flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg border transition-all duration-150 font-medium shrink-0',
             copied
               ? 'text-emerald-400 bg-emerald-500/10 border-emerald-500/30'
-              : 'text-text-muted bg-surface-2 border-border hover:text-text-primary hover:border-indigo-500/30'
+              : 'text-text-muted bg-surface-2 border-border hover:text-text-primary hover:border-[#2a2a2a]'
           )}
           aria-label="Copy reply to clipboard"
         >
@@ -114,8 +114,8 @@ export function ReplyCard({ reply, index }: ReplyCardProps) {
               className={cn(
                 'flex items-center gap-1 text-[11px] font-medium px-2.5 py-1.5 rounded-lg border transition-all duration-150',
                 refiningAction === action.value
-                  ? 'text-indigo-300 bg-indigo-500/15 border-indigo-500/30'
-                  : 'text-text-muted bg-surface-2 border-border hover:border-indigo-500/30 hover:text-text-primary hover:bg-indigo-500/5 disabled:opacity-40 disabled:cursor-not-allowed'
+                  ? 'text-[#e8382a] bg-[rgba(232,56,42,0.1)] border-[rgba(232,56,42,0.2)]'
+                  : 'text-text-muted bg-surface-2 border-border hover:border-[rgba(232,56,42,0.2)] hover:text-text-primary hover:bg-[rgba(232,56,42,0.05)] disabled:opacity-40 disabled:cursor-not-allowed'
               )}
             >
               <span>{action.icon}</span>
