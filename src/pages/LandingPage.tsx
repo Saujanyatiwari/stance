@@ -26,8 +26,7 @@ export default function LandingPage() {
   const [headlineDone, setHeadlineDone] = useState(false);
   const [navHover, setNavHover] = useState(false);
   const [navActive, setNavActive] = useState(false);
-  const [ctaHover, setCtaHover] = useState(false);
-  const [ctaActive, setCtaActive] = useState(false);
+  const [screenCtaHover, setScreenCtaHover] = useState(false);
 
   const HANDLED = 'handled';
 
@@ -172,7 +171,7 @@ export default function LandingPage() {
         }}
       >
         {/* Headline */}
-        <div style={{ textAlign: 'center', marginBottom: '10px', padding: '0 24px' }}>
+        <div style={{ textAlign: 'center', marginBottom: '22px', padding: '0 24px' }}>
           <h1
             style={{
               color: '#fff',
@@ -198,17 +197,6 @@ export default function LandingPage() {
               }}
             />
           </h1>
-          <p
-            style={{
-              color: '#555',
-              fontSize: '12px',
-              margin: 0,
-              lineHeight: 1.65,
-              textAlign: 'center',
-            }}
-          >
-            Tell Stance the situation. Get 3 confident replies in seconds<br />— free, private, no signup.
-          </p>
         </div>
 
         {/* Laptop frame */}
@@ -403,6 +391,30 @@ export default function LandingPage() {
                       {SCENARIOS[scenarioIndex].question}
                     </span>
                   </div>
+
+                  {/* In-screen CTA */}
+                  <div style={{ marginTop: '10px' }}>
+                  <button
+                    onClick={() => navigate('/app')}
+                    onMouseEnter={() => setScreenCtaHover(true)}
+                    onMouseLeave={() => setScreenCtaHover(false)}
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      background: '#0d0d0d',
+                      border: '1px solid #242424',
+                      borderRadius: '20px',
+                      padding: '7px 16px',
+                      color: '#fff',
+                      fontSize: '14px',
+                      cursor: 'pointer',
+                      boxShadow: screenCtaHover ? '0 0 18px rgba(180,20,20,0.6)' : 'none',
+                      transition: 'box-shadow 0.18s ease',
+                    }}
+                  >
+                    Try it free →
+                  </button>
+                  </div>
               </div>
             </div>
           </div>
@@ -454,40 +466,20 @@ export default function LandingPage() {
           </div>
         </div>
 
-        {/* CTA */}
+        {/* Bottom text */}
         <div
           style={{
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
             marginTop: '0px',
-            gap: '6px',
+            gap: '4px',
           }}
         >
-          <button
-            onClick={() => navigate('/app')}
-            onMouseEnter={() => setCtaHover(true)}
-            onMouseLeave={() => { setCtaHover(false); setCtaActive(false); }}
-            onMouseDown={() => setCtaActive(true)}
-            onMouseUp={() => setCtaActive(false)}
-            style={{
-              background: 'transparent',
-              border: '1px solid rgba(255,255,255,0.25)',
-              color: '#fff',
-              padding: '11px 28px',
-              borderRadius: '8px',
-              cursor: 'pointer',
-              fontSize: '15px',
-              fontWeight: 500,
-              transition: 'transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease',
-              transform: ctaActive ? 'scale(0.96) translateY(0px)' : ctaHover ? 'scale(1.07) translateY(-2px)' : 'scale(1) translateY(0px)',
-              boxShadow: ctaActive ? '0 0 24px rgba(220,40,40,0.6), 0 0 10px rgba(220,40,40,0.35)' : ctaHover ? '0 6px 20px rgba(0,0,0,0.45)' : 'none',
-              borderColor: ctaHover ? 'rgba(255,255,255,0.5)' : 'rgba(255,255,255,0.25)',
-            }}
-          >
-            Try it free →
-          </button>
-          <p style={{ color: '#666', fontSize: '13px', margin: 0, textAlign: 'center' }}>
+          <p style={{ color: '#555', fontSize: '12px', margin: 0, textAlign: 'center', whiteSpace: 'nowrap' }}>
+            Tell Stance the situation. Get 3 confident replies in seconds — free, private, no signup.
+          </p>
+          <p style={{ color: '#666', fontSize: '13px', margin: 0, textAlign: 'center', fontWeight: 600 }}>
             Free · Private · No account needed
           </p>
         </div>
