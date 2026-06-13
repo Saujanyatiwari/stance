@@ -1,4 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import LandingPage from './pages/LandingPage';
 import { Header } from './components/layout/Header';
 import { ToastContainer } from './components/ui/Toast';
 import { AppProvider, useApp } from './context/AppContext';
@@ -128,8 +130,18 @@ function AppShell() {
 
 export default function App() {
   return (
-    <AppProvider>
-      <AppShell />
-    </AppProvider>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route
+          path="/app"
+          element={
+            <AppProvider>
+              <AppShell />
+            </AppProvider>
+          }
+        />
+      </Routes>
+    </BrowserRouter>
   );
 }
