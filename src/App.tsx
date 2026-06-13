@@ -17,6 +17,7 @@ const DEFAULT_WIDTH = 480;
 const STORAGE_KEY = 'stance_panel_width';
 
 function LeftPanel({ width }: { width: number }) {
+  const { playbookLoadKey } = useApp();
   return (
     <div
       className="relative flex flex-col w-full md:shrink-0 bg-[#0d0d0d] md:overflow-y-auto"
@@ -29,7 +30,7 @@ function LeftPanel({ width }: { width: number }) {
         <SituationSelector />
         <OutcomeSelector />
         <RoleInput />
-        <WritingExamples />
+        <WritingExamples key={playbookLoadKey} />
       </div>
 
       {/* Mobile: button in normal page flow */}

@@ -42,7 +42,7 @@ export function GenerateButton() {
       </button>
 
       {!incomingMessage.trim() && (
-        <p className="text-xs text-text-muted text-center">Paste an incoming message above to get started.</p>
+        <p className="text-xs text-text-muted text-center">Select a situation and paste a message to get started.</p>
       )}
 
       {generationError && (

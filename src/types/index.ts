@@ -61,6 +61,7 @@ export interface Playbook {
   name: string;
   situation: Situation;
   desiredOutcome: DesiredOutcome;
+  role?: string;
   writingExamples: string[];
   isBuiltIn: boolean;
   createdAt: number;
@@ -179,29 +180,35 @@ export const QUICK_ACTION_OPTIONS: QuickActionOption[] = [
   { value: 'more-confident',  label: 'More Confident',  icon: '⚡' },
 ];
 
-export const BUILT_IN_PLAYBOOKS: Omit<Playbook, 'createdAt'>[] = [
+export const BUILT_IN_PLAYBOOKS: Playbook[] = [
   {
-    id: 'builtin-payment',
-    name: 'Payment / Invoice Follow-up',
+    id: 'builtin-invoice',
+    name: 'Chasing an Unpaid Invoice',
     situation: 'payment-invoice',
     desiredOutcome: 'get-paid-faster',
+    role: 'Freelancer',
     writingExamples: [],
     isBuiltIn: true,
+    createdAt: 0,
   },
   {
-    id: 'builtin-rejection',
-    name: 'Polite Rejection',
-    situation: 'polite-rejection',
-    desiredOutcome: 'close-conversation',
+    id: 'builtin-scope-creep',
+    name: 'Declining Additional Unagreed Requests',
+    situation: 'declining-scope-creep',
+    desiredOutcome: 'set-boundaries',
+    role: '',
     writingExamples: [],
     isBuiltIn: true,
+    createdAt: 0,
   },
   {
-    id: 'builtin-salary',
-    name: 'Salary Negotiation / Raise',
-    situation: 'negotiation-raise',
-    desiredOutcome: 'negotiate-better-terms',
+    id: 'builtin-complaint',
+    name: 'Handling a Client Complaint',
+    situation: 'complaint-response',
+    desiredOutcome: 'resolve-professionally',
+    role: 'Business Owner',
     writingExamples: [],
     isBuiltIn: true,
+    createdAt: 0,
   },
 ];

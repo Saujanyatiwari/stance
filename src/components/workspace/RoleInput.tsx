@@ -35,7 +35,9 @@ export function RoleInput() {
   const triggerRef = useRef<HTMLButtonElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
+  // Close on click-outside — only active while dropdown is open
   useEffect(() => {
+    if (!isOpen) return;
     function handler(e: MouseEvent) {
       const t = e.target as Node;
       if (!triggerRef.current?.contains(t) && !dropdownRef.current?.contains(t)) {
@@ -44,7 +46,18 @@ export function RoleInput() {
     }
     document.addEventListener('mousedown', handler);
     return () => document.removeEventListener('mousedown', handler);
-  }, []);
+  }, [isOpen]);
+
+  // Close on scroll — but not when scrolling inside the dropdown list itself
+  useEffect(() => {
+    if (!isOpen) return;
+    const close = (e: Event) => {
+      if (dropdownRef.current?.contains(e.target as Node)) return;
+      setIsOpen(false);
+    };
+    window.addEventListener('scroll', close, true);
+    return () => window.removeEventListener('scroll', close, true);
+  }, [isOpen]);
 
   const handleToggle = () => {
     if (!isOpen && triggerRef.current) {
@@ -92,7 +105,7 @@ export function RoleInput() {
           onClick={handleToggle}
           className={`w-full flex items-center justify-between bg-surface-2 border rounded-[8px] px-4 py-3 transition-colors text-left ${
             isOpen
-              ? 'border-[#e8382a] ring-2 ring-[rgba(232,56,42,0.12)]'
+              ? 'border-[#e8382a]'
               : 'border-border hover:border-[#2a2a2a]'
           }`}
         >
@@ -117,7 +130,7 @@ export function RoleInput() {
             }}
             className="bg-[#111111] border border-[#1e1e1e] rounded-[8px] shadow-2xl overflow-hidden"
           >
-            <div className="max-h-[320px] overflow-y-auto">
+            <div className="max-h-[300px] overflow-y-auto">
               {ROLES_DEFAULT.map((label) => (
                 <button
                   key={label}

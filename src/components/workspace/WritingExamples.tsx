@@ -3,10 +3,14 @@ import { ChevronDown } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
 
 export function WritingExamples() {
-  const { setWritingExamples } = useApp();
+  const { writingExamples: ctxExamples, setWritingExamples } = useApp();
   const [isOpen, setIsOpen] = useState(true);
-  const [visible, setVisible] = useState(1);
-  const [examples, setExamples] = useState(['', '', '']);
+  const [visible, setVisible] = useState(() => Math.max(1, ctxExamples.length));
+  const [examples, setExamples] = useState<string[]>(() => {
+    const base = ['', '', ''];
+    ctxExamples.forEach((ex, i) => { if (i < 3) base[i] = ex; });
+    return base;
+  });
 
   const updateExample = (index: number, value: string) => {
     const next = [...examples];

@@ -12,7 +12,9 @@ export function SituationSelector() {
   const triggerRef = useRef<HTMLButtonElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
+  // Close on click-outside — only active while the dropdown is open
   useEffect(() => {
+    if (!isOpen) return;
     function handler(e: MouseEvent) {
       const t = e.target as Node;
       if (!triggerRef.current?.contains(t) && !dropdownRef.current?.contains(t)) {
@@ -21,10 +23,23 @@ export function SituationSelector() {
     }
     document.addEventListener('mousedown', handler);
     return () => document.removeEventListener('mousedown', handler);
-  }, []);
+  }, [isOpen]);
+
+  // Close on scroll — but not when the user is scrolling inside the dropdown list itself
+  useEffect(() => {
+    if (!isOpen) return;
+    const close = (e: Event) => {
+      if (dropdownRef.current?.contains(e.target as Node)) return;
+      setIsOpen(false);
+    };
+    window.addEventListener('scroll', close, true);
+    return () => window.removeEventListener('scroll', close, true);
+  }, [isOpen]);
 
   const allOptions = [...SITUATION_OPTIONS_DEFAULT, ...SITUATION_OPTIONS_MORE];
-  const selectedLabel = allOptions.find((o) => o.value === situation)?.label ?? 'Select situation';
+  const selectedOption = situation ? allOptions.find((o) => o.value === situation) : null;
+  const isPlaceholder = !selectedOption;
+  const selectedLabel = selectedOption?.label ?? 'Select a situation';
 
   const handleToggle = () => {
     if (!isOpen && triggerRef.current) {
@@ -55,7 +70,7 @@ export function SituationSelector() {
               : 'border-border hover:border-[#2a2a2a]'
           }`}
         >
-          <span className="text-[16px] text-text-primary flex-1 min-w-0 truncate pr-2">
+          <span className={`text-[16px] flex-1 min-w-0 truncate pr-2 ${isPlaceholder ? 'text-[#444444]' : 'text-text-primary'}`}>
             {selectedLabel}
           </span>
           <ChevronDown

@@ -1,6 +1,5 @@
 import { useApp } from '../../context/AppContext';
 import { ReplyCard } from './ReplyCard';
-import { EmptyState } from '../ui/EmptyState';
 import { theme } from '../../theme';
 
 const SKELETON_COLORS = [
@@ -52,25 +51,6 @@ function CardSkeleton({ index }: { index: number }) {
   );
 }
 
-// TODO (Prompt 5): remove DUMMY_REPLIES once real AI replies are wired in
-const DUMMY_REPLIES = [
-  {
-    id: 'dummy-0',
-    title: 'Firm',
-    content: 'Thank you for the update. I understand you have moved in a different direction. I would appreciate any feedback on where our proposal fell short as it helps me improve for future work.',
-  },
-  {
-    id: 'dummy-1',
-    title: 'Diplomatic',
-    content: 'Thank you for letting me know. I would love to understand more about your decision if you are open to sharing. Wishing you all the best with the project.',
-  },
-  {
-    id: 'dummy-2',
-    title: 'Brief',
-    content: 'Understood, thanks for letting me know. Good luck with the project.',
-  },
-];
-
 export function ReplyGrid() {
   const { replies, isLoading } = useApp();
 
@@ -84,8 +64,7 @@ export function ReplyGrid() {
     );
   }
 
-  // TODO (Prompt 5): remove the DUMMY_REPLIES fallback — use `replies` directly
-  const displayReplies = replies.length > 0 ? replies : DUMMY_REPLIES;
+  if (replies.length === 0) return null;
 
   return (
     <div className="p-6 md:p-8 space-y-5">
@@ -102,12 +81,12 @@ export function ReplyGrid() {
             border:     `1px solid ${theme.colors.accentGlow}`,
           }}
         >
-          {displayReplies.length} variation{displayReplies.length !== 1 ? 's' : ''}
+          {replies.length} variation{replies.length !== 1 ? 's' : ''}
         </span>
       </div>
 
       {/* Reply cards */}
-      {displayReplies.map((reply, i) => (
+      {replies.map((reply, i) => (
         <ReplyCard key={reply.id} reply={reply} index={i} />
       ))}
     </div>

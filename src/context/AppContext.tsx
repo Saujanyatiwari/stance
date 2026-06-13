@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useCallback } from 'react';
-import type { Situation, DesiredOutcome, Reply } from '../types';
+import type { Situation, DesiredOutcome, Reply, Playbook } from '../types';
 import { useTheme } from '../hooks/useTheme';
 import { usePlaybooks } from '../hooks/usePlaybooks';
 import { useGeneration } from '../hooks/useGeneration';
@@ -13,21 +13,22 @@ interface AppContextValue {
   toggleTheme: () => void;
 
   // Playbooks
-  playbooks: ReturnType<typeof usePlaybooks>['playbooks'];
-  activePlaybook: ReturnType<typeof usePlaybooks>['activePlaybook'];
-  activePlaybookId: string | null;
-  addPlaybook: ReturnType<typeof usePlaybooks>['addPlaybook'];
-  deletePlaybook: ReturnType<typeof usePlaybooks>['deletePlaybook'];
-  selectPlaybook: ReturnType<typeof usePlaybooks>['selectPlaybook'];
-  clearPlaybookSelection: ReturnType<typeof usePlaybooks>['clearSelection'];
+  allPlaybooks: Playbook[];
+  customCount: number;
+  canAddPlaybook: boolean;
+  addPlaybook: (data: Omit<Playbook, 'id' | 'createdAt' | 'isBuiltIn'>) => Playbook;
+  updatePlaybook: (id: string, data: Omit<Playbook, 'id' | 'createdAt' | 'isBuiltIn'>) => void;
+  deletePlaybook: (id: string) => void;
+  loadPlaybook: (id: string) => void;
+  playbookLoadKey: number;
 
   // Workspace form state
   incomingMessage: string;
   setIncomingMessage: (v: string) => void;
   emailThread: string;
   setEmailThread: (v: string) => void;
-  situation: Situation;
-  setSituation: (v: Situation) => void;
+  situation: Situation | '';
+  setSituation: (v: Situation | '') => void;
   desiredOutcome: DesiredOutcome;
   setDesiredOutcome: (v: DesiredOutcome) => void;
   role: string;
@@ -58,13 +59,12 @@ const AppContext = createContext<AppContextValue | null>(null);
 export function AppProvider({ children }: { children: React.ReactNode }) {
   const { theme, toggleTheme } = useTheme();
   const {
-    playbooks,
-    activePlaybook,
-    activePlaybookId,
+    allPlaybooks,
+    customCount,
+    canAdd,
     addPlaybook,
+    updatePlaybook,
     deletePlaybook,
-    selectPlaybook,
-    clearSelection,
   } = usePlaybooks();
   const { replies, riskAnalysis, isLoading, error: generationError, generate: generateReplies, refineReply: refineReplyBase } = useGeneration();
   const { toasts, addToast, removeToast } = useToast();
@@ -72,27 +72,23 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   // ─── Workspace State ────────────────────────────────────────────────────────
   const [incomingMessage, setIncomingMessage] = useState('');
   const [emailThread, setEmailThread] = useState('');
-  const [situation, setSituation] = useState<Situation>('payment-invoice');
+  const [situation, setSituation] = useState<Situation | ''>('');
   const [desiredOutcome, setDesiredOutcome] = useState<DesiredOutcome>('get-a-response');
   const [role, setRole] = useState('');
   const [writingExamples, setWritingExamplesState] = useState<string[]>([]);
+  const [playbookLoadKey, setPlaybookLoadKey] = useState(0);
 
-  // ─── Sync playbook selection into workspace ─────────────────────────────────
-  const handleSelectPlaybook = useCallback(
-    (id: string) => {
-      selectPlaybook(id);
-
-      const pb = playbooks.find((p) => p.id === id);
-      if (pb) {
-        setTimeout(() => {
-          setSituation(pb.situation || 'payment-invoice');
-          setDesiredOutcome(pb.desiredOutcome || 'get-a-response');
-          setWritingExamplesState(pb.writingExamples ? [...pb.writingExamples] : []);
-        }, 0);
-      }
-    },
-    [selectPlaybook, playbooks]
-  );
+  // ─── Load playbook into workspace ───────────────────────────────────────────
+  const loadPlaybook = useCallback((id: string) => {
+    const pb = allPlaybooks.find((p) => p.id === id);
+    if (!pb) return;
+    setSituation(pb.situation);
+    setDesiredOutcome(pb.desiredOutcome);
+    setRole(pb.role ?? '');
+    setWritingExamplesState(pb.writingExamples ? [...pb.writingExamples] : []);
+    setPlaybookLoadKey((k) => k + 1);
+    addToast('success', `Playbook loaded — ${pb.name}`);
+  }, [allPlaybooks, addToast]);
 
   // ─── Writing examples ───────────────────────────────────────────────────────
   const setWritingExamples = useCallback((examples: string[]) => {
@@ -117,7 +113,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     }
     await generateReplies({
       incomingMessage,
-      situation,
+      situation: situation as Situation,
       desiredOutcome,
       role,
       writingExamples,
@@ -126,7 +122,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
 
   const refineReply = useCallback(
     async (replyId: string, action: import('../types').QuickAction) => {
-      await refineReplyBase(replyId, action, situation, desiredOutcome);
+      await refineReplyBase(replyId, action, situation as Situation, desiredOutcome);
     },
     [refineReplyBase, situation, desiredOutcome]
   );
@@ -134,13 +130,14 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   const value: AppContextValue = {
     theme,
     toggleTheme,
-    playbooks,
-    activePlaybook,
-    activePlaybookId,
+    allPlaybooks,
+    customCount,
+    canAddPlaybook: canAdd,
     addPlaybook,
+    updatePlaybook,
     deletePlaybook,
-    selectPlaybook: handleSelectPlaybook,
-    clearPlaybookSelection: clearSelection,
+    loadPlaybook,
+    playbookLoadKey,
     incomingMessage,
     setIncomingMessage,
     emailThread,

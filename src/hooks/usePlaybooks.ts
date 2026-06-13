@@ -1,76 +1,71 @@
 import { useState, useCallback } from 'react';
 import type { Playbook } from '../types';
 import { BUILT_IN_PLAYBOOKS } from '../types';
-import { storageGet, storageSet, STORAGE_KEYS } from '../utils/localStorage';
 
-function getInitialPlaybooks(): Playbook[] {
-  const saved = storageGet<Playbook[]>(STORAGE_KEYS.PLAYBOOKS, []);
+const MAX_CUSTOM = 3;
+const STORAGE_KEY = 'stance_playbooks';
 
-  // Ensure built-ins are always present (merge, don't duplicate)
-  const savedIds = new Set(saved.map((p) => p.id));
-  const builtIns: Playbook[] = BUILT_IN_PLAYBOOKS.filter(
-    (b) => !savedIds.has(b.id)
-  ).map((b) => ({ ...b, createdAt: 0 }));
+function loadCustom(): Playbook[] {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return [];
+    const items = JSON.parse(raw) as Playbook[];
+    return items.map((item) => ({ ...item, role: item.role ?? '' }));
+  } catch {
+    return [];
+  }
+}
 
-  return [...builtIns, ...saved];
+function saveCustom(playbooks: Playbook[]): void {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(playbooks));
+  } catch {}
 }
 
 export function usePlaybooks() {
-  const [playbooks, setPlaybooks] = useState<Playbook[]>(getInitialPlaybooks);
-  const [activePlaybookId, setActivePlaybookId] = useState<string | null>(null);
+  const [custom, setCustom] = useState<Playbook[]>(loadCustom);
 
-  const persistCustom = useCallback((updated: Playbook[]) => {
-    const custom = updated.filter((p) => !p.isBuiltIn);
-    storageSet(STORAGE_KEYS.PLAYBOOKS, custom);
+  const allPlaybooks = [...BUILT_IN_PLAYBOOKS, ...custom];
+  const customCount = custom.length;
+  const canAdd = customCount < MAX_CUSTOM;
+
+  const addPlaybook = useCallback((data: Omit<Playbook, 'id' | 'createdAt' | 'isBuiltIn'>) => {
+    const newPlaybook: Playbook = {
+      ...data,
+      id: `custom-${Date.now()}`,
+      isBuiltIn: false,
+      createdAt: Date.now(),
+    };
+    setCustom((prev) => {
+      const updated = [...prev, newPlaybook];
+      saveCustom(updated);
+      return updated;
+    });
+    return newPlaybook;
   }, []);
 
-  const addPlaybook = useCallback(
-    (playbook: Omit<Playbook, 'id' | 'createdAt' | 'isBuiltIn'>) => {
-      const newPlaybook: Playbook = {
-        ...playbook,
-        id: `custom-${Date.now()}`,
-        isBuiltIn: false,
-        createdAt: Date.now(),
-      };
-      setPlaybooks((prev) => {
-        const updated = [...prev, newPlaybook];
-        persistCustom(updated);
-        return updated;
-      });
-      return newPlaybook;
-    },
-    [persistCustom]
-  );
-
-  const deletePlaybook = useCallback(
-    (id: string) => {
-      setPlaybooks((prev) => {
-        const updated = prev.filter((p) => p.id !== id);
-        persistCustom(updated);
-        return updated;
-      });
-      if (activePlaybookId === id) setActivePlaybookId(null);
-    },
-    [activePlaybookId, persistCustom]
-  );
-
-  const selectPlaybook = useCallback((id: string) => {
-    setActivePlaybookId(id);
+  const updatePlaybook = useCallback((id: string, data: Omit<Playbook, 'id' | 'createdAt' | 'isBuiltIn'>) => {
+    setCustom((prev) => {
+      const updated = prev.map((p) => p.id === id ? { ...p, ...data } : p);
+      saveCustom(updated);
+      return updated;
+    });
   }, []);
 
-  const clearSelection = useCallback(() => {
-    setActivePlaybookId(null);
+  const deletePlaybook = useCallback((id: string) => {
+    setCustom((prev) => {
+      const updated = prev.filter((p) => p.id !== id);
+      saveCustom(updated);
+      return updated;
+    });
   }, []);
-
-  const activePlaybook = playbooks.find((p) => p.id === activePlaybookId) ?? null;
 
   return {
-    playbooks,
-    activePlaybook,
-    activePlaybookId,
+    allPlaybooks,
+    customCount,
+    canAdd,
     addPlaybook,
+    updatePlaybook,
     deletePlaybook,
-    selectPlaybook,
-    clearSelection,
   };
 }
