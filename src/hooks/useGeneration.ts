@@ -1,3 +1,11 @@
+declare global {
+  interface Window {
+    umami?: {
+      track: (event: string, data?: Record<string, unknown>) => void;
+    };
+  }
+}
+
 import { useState, useCallback } from 'react';
 import type { Reply, QuickAction, Situation, DesiredOutcome } from '../types';
 import { generateReplies } from '../services/aiService';
