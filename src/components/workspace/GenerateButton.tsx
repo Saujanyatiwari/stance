@@ -13,11 +13,11 @@ export function GenerateButton() {
         className="w-full relative group flex items-center justify-center gap-3 px-6 py-4 rounded-2xl text-base font-semibold text-white transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed overflow-hidden"
         style={{
           background: isLoading
-            ? 'linear-gradient(135deg, #4f46e5, #7c3aed)'
-            : 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+            ? 'linear-gradient(135deg, #c5251a, #a81d13)'
+            : 'linear-gradient(135deg, #e8382a, #c5251a)',
           boxShadow: isLoading
             ? 'none'
-            : '0 8px 32px rgba(99, 102, 241, 0.35), 0 2px 8px rgba(99, 102, 241, 0.2)',
+            : '0 0 18px rgba(232,56,42,0.35), 0 2px 8px rgba(232,56,42,0.20)',
         }}
       >
         {/* Shimmer overlay on hover */}

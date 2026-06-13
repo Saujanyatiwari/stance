@@ -1,21 +1,42 @@
 // ─── Enums & Union Types ────────────────────────────────────────────────────
 
 export type Situation =
+  // Default 5 shown in UI
   | 'payment-invoice'
   | 'negotiation-raise'
-  | 'follow-up-no-reply'
-  | 'polite-rejection'
   | 'complaint-response'
+  | 'declining-scope-creep'
+  | 'polite-rejection'
+  // More situations
+  | 'follow-up-no-reply'
+  | 'pushing-back-pricing'
+  | 'deadline-extension'
+  | 'unfair-feedback'
+  | 'resignation'
+  | 'workplace-conflict'
+  | 'reconnecting'
+  | 'cold-outreach'
+  | 'vendor-dispute'
+  // Legacy (kept for stored playbooks)
   | 'feedback-revision'
   | 'custom';
 
 export type DesiredOutcome =
+  // Default 5 shown in UI
   | 'get-a-response'
-  | 'get-paid-faster'
-  | 'negotiate-better-terms'
+  | 'resolve-professionally'
   | 'set-boundaries'
   | 'maintain-relationship'
   | 'close-conversation'
+  // More outcomes
+  | 'get-paid-faster'
+  | 'buy-time'
+  | 'escalate-urgency'
+  | 'apologise-recover'
+  | 'negotiate-better-terms'
+  | 'decline-no-damage'
+  | 'request-feedback'
+  // Legacy
   | 'appear-confident';
 
 export type QuickAction =
@@ -97,32 +118,65 @@ export interface QuickActionOption {
 
 // ─── Constants ───────────────────────────────────────────────────────────────
 
+export const SITUATION_OPTIONS_DEFAULT: SituationOption[] = [
+  { value: 'payment-invoice',       label: 'Unpaid invoice or late payment',            description: 'Chase an overdue or outstanding payment' },
+  { value: 'negotiation-raise',     label: 'Salary or rate negotiation',                description: 'Negotiate salary, rates, or project terms' },
+  { value: 'complaint-response',    label: 'Client complaint or dissatisfaction',        description: 'Respond to a complaint or unhappy client' },
+  { value: 'declining-scope-creep', label: 'Declining Additional Unagreed Requests',    description: 'Push back on scope creep or extra work' },
+  { value: 'polite-rejection',      label: 'Declining a request or proposal',           description: 'Say no professionally without damaging trust' },
+];
+
+export const SITUATION_OPTIONS_MORE: SituationOption[] = [
+  { value: 'follow-up-no-reply',   label: 'No response to my follow-up',      description: 'Chase a non-responsive contact' },
+  { value: 'pushing-back-pricing', label: 'Pushing back on pricing',           description: 'Defend your rates when challenged on price' },
+  { value: 'deadline-extension',   label: 'Requesting a deadline extension',   description: 'Ask for more time professionally' },
+  { value: 'unfair-feedback',      label: 'Unfair feedback or review',         description: 'Respond to criticism you disagree with' },
+  { value: 'resignation',          label: 'Resignation or leaving a role',     description: 'Resign or end a working relationship professionally' },
+  { value: 'workplace-conflict',   label: 'Workplace conflict or HR issue',    description: 'Navigate a difficult colleague or HR situation' },
+  { value: 'reconnecting',         label: 'Reconnecting after a long gap',     description: 'Re-engage a dormant contact or relationship' },
+  { value: 'cold-outreach',        label: 'Cold outreach follow-up',           description: 'Follow up on an unanswered cold message' },
+  { value: 'vendor-dispute',       label: 'Vendor or supplier dispute',        description: 'Resolve a dispute with a vendor or supplier' },
+];
+
 export const SITUATION_OPTIONS: SituationOption[] = [
-  { value: 'payment-invoice', label: 'Payment / Invoice', description: 'Follow up on outstanding payments' },
-  { value: 'negotiation-raise', label: 'Negotiation / Raise', description: 'Negotiate salary or project terms' },
-  { value: 'follow-up-no-reply', label: 'Follow-up (No Reply)', description: 'Chase a non-responsive contact' },
-  { value: 'polite-rejection', label: 'Polite Rejection', description: 'Decline professionally and kindly' },
-  { value: 'complaint-response', label: 'Complaint Response', description: 'Address a complaint or criticism' },
-  { value: 'feedback-revision', label: 'Feedback / Revision Request', description: 'Ask for or respond to revisions' },
-  { value: 'custom', label: 'Custom', description: 'Any other professional situation' },
+  ...SITUATION_OPTIONS_DEFAULT,
+  ...SITUATION_OPTIONS_MORE,
+  // Legacy options kept for stored playbooks backward compat
+  { value: 'feedback-revision', label: 'Feedback or revision request', description: 'Request or respond to revisions' },
+  { value: 'custom',            label: 'Custom',                       description: 'Any other professional situation' },
+];
+
+export const OUTCOME_OPTIONS_DEFAULT: OutcomeOption[] = [
+  { value: 'get-a-response',        label: 'Get a response',             icon: '💬' },
+  { value: 'resolve-professionally', label: 'Resolve it professionally', icon: '🤝' },
+  { value: 'set-boundaries',        label: 'Hold my position firmly',    icon: '🛡️' },
+  { value: 'maintain-relationship', label: 'Preserve the relationship',  icon: '🌱' },
+  { value: 'close-conversation',    label: 'Close the conversation',     icon: '✅' },
+];
+
+export const OUTCOME_OPTIONS_MORE: OutcomeOption[] = [
+  { value: 'get-paid-faster',      label: 'Get paid immediately',              icon: '💰' },
+  { value: 'buy-time',             label: 'Buy more time',                     icon: '⏳' },
+  { value: 'escalate-urgency',     label: 'Escalate the urgency',              icon: '🔥' },
+  { value: 'apologise-recover',    label: 'Apologise and recover',             icon: '🙏' },
+  { value: 'negotiate-better-terms', label: 'Negotiate better terms',          icon: '📋' },
+  { value: 'decline-no-damage',    label: 'Decline without damaging trust',    icon: '🎯' },
+  { value: 'request-feedback',     label: 'Request honest feedback',           icon: '💡' },
 ];
 
 export const OUTCOME_OPTIONS: OutcomeOption[] = [
-  { value: 'get-a-response', label: 'Get a response', icon: '💬' },
-  { value: 'get-paid-faster', label: 'Get paid faster', icon: '💰' },
-  { value: 'negotiate-better-terms', label: 'Negotiate better terms', icon: '🤝' },
-  { value: 'set-boundaries', label: 'Set boundaries firmly', icon: '🛡️' },
-  { value: 'maintain-relationship', label: 'Maintain / build relationship', icon: '🌱' },
-  { value: 'close-conversation', label: 'Close conversation professionally', icon: '✅' },
+  ...OUTCOME_OPTIONS_DEFAULT,
+  ...OUTCOME_OPTIONS_MORE,
+  // Legacy
   { value: 'appear-confident', label: 'Appear confident', icon: '💪' },
 ];
 
 export const QUICK_ACTION_OPTIONS: QuickActionOption[] = [
-  { value: 'firmer', label: 'Make Firmer', icon: '🔒' },
-  { value: 'more-polite', label: 'More Polite', icon: '🌸' },
-  { value: 'shorter', label: 'Make Shorter', icon: '✂️' },
-  { value: 'more-human', label: 'More Human', icon: '👤' },
-  { value: 'more-confident', label: 'More Confident', icon: '⚡' },
+  { value: 'firmer',          label: 'Make Firmer',     icon: '🔒' },
+  { value: 'more-polite',     label: 'More Polite',     icon: '🌸' },
+  { value: 'shorter',         label: 'Make Shorter',    icon: '✂️' },
+  { value: 'more-human',      label: 'More Human',      icon: '👤' },
+  { value: 'more-confident',  label: 'More Confident',  icon: '⚡' },
 ];
 
 export const BUILT_IN_PLAYBOOKS: Omit<Playbook, 'createdAt'>[] = [

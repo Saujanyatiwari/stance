@@ -1,38 +1,127 @@
+import { useState, useRef, useEffect } from 'react';
 import { ChevronDown } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
-import { SITUATION_OPTIONS } from '../../types';
+import { SITUATION_OPTIONS_DEFAULT, SITUATION_OPTIONS_MORE } from '../../types';
+import type { Situation } from '../../types';
 
 export function SituationSelector() {
   const { situation, setSituation } = useApp();
-  const selected = SITUATION_OPTIONS.find((s) => s.value === situation);
+  const [isOpen, setIsOpen] = useState(false);
+  const [showMore, setShowMore] = useState(false);
+  const [dropdownPos, setDropdownPos] = useState({ top: 0, left: 0, width: 0 });
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handler(e: MouseEvent) {
+      const t = e.target as Node;
+      if (!triggerRef.current?.contains(t) && !dropdownRef.current?.contains(t)) {
+        setIsOpen(false);
+      }
+    }
+    document.addEventListener('mousedown', handler);
+    return () => document.removeEventListener('mousedown', handler);
+  }, []);
+
+  const allOptions = [...SITUATION_OPTIONS_DEFAULT, ...SITUATION_OPTIONS_MORE];
+  const selectedLabel = allOptions.find((o) => o.value === situation)?.label ?? 'Select situation';
+
+  const handleToggle = () => {
+    if (!isOpen && triggerRef.current) {
+      const r = triggerRef.current.getBoundingClientRect();
+      setDropdownPos({ top: r.bottom + 4, left: r.left, width: r.width });
+    }
+    setIsOpen((v) => !v);
+  };
+
+  const handleSelect = (value: Situation) => {
+    setSituation(value);
+    setIsOpen(false);
+  };
 
   return (
     <div className="space-y-2">
-      <label htmlFor="situation-select" className="block text-sm font-semibold text-text-primary">
-        Situation
-      </label>
+      <label className="block text-sm font-semibold text-text-primary">Situation</label>
       <p className="text-xs text-text-muted">What kind of conversation is this?</p>
+
       <div className="relative">
-        <select
-          id="situation-select"
-          value={situation}
-          onChange={(e) => setSituation(e.target.value as typeof situation)}
-          className="w-full appearance-none bg-surface-2 border border-border rounded-xl px-4 py-2.5 text-sm text-text-primary focus:outline-none focus:ring-2 focus:ring-[rgba(232,56,42,0.15)] focus:border-[#e8382a] transition-all pr-10 cursor-pointer"
+        <button
+          ref={triggerRef}
+          type="button"
+          onClick={handleToggle}
+          className={`w-full flex items-center justify-between bg-surface-2 border rounded-[8px] px-4 py-3 transition-colors text-left ${
+            isOpen
+              ? 'border-[#e8382a] ring-2 ring-[rgba(232,56,42,0.12)]'
+              : 'border-border hover:border-[#2a2a2a]'
+          }`}
         >
-          {SITUATION_OPTIONS.map((opt) => (
-            <option key={opt.value} value={opt.value}>
-              {opt.label}
-            </option>
-          ))}
-        </select>
-        <ChevronDown
-          size={16}
-          className="absolute right-3 top-1/2 -translate-y-1/2 text-text-muted pointer-events-none"
-        />
+          <span className="text-[16px] text-text-primary flex-1 min-w-0 truncate pr-2">
+            {selectedLabel}
+          </span>
+          <ChevronDown
+            size={16}
+            className={`text-[#555555] shrink-0 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
+          />
+        </button>
+
+        {isOpen && (
+          <div
+            ref={dropdownRef}
+            style={{
+              position: 'fixed',
+              top: dropdownPos.top,
+              left: dropdownPos.left,
+              width: dropdownPos.width,
+              zIndex: 9999,
+            }}
+            className="bg-[#111111] border border-[#1e1e1e] rounded-[8px] shadow-2xl overflow-hidden"
+          >
+            <div className="max-h-[320px] overflow-y-auto">
+              {SITUATION_OPTIONS_DEFAULT.map((opt) => (
+                <button
+                  key={opt.value}
+                  type="button"
+                  onClick={() => handleSelect(opt.value)}
+                  className={`w-full text-left px-4 py-3 text-[14px] transition-colors ${
+                    situation === opt.value
+                      ? 'text-[#e8382a] bg-[rgba(232,56,42,0.06)]'
+                      : 'text-[#cccccc] hover:bg-[#1a1a1a] hover:text-[#f2f2f2]'
+                  }`}
+                >
+                  {opt.label}
+                </button>
+              ))}
+
+              <div className="h-px bg-[#1e1e1e] mx-4" />
+
+              {!showMore ? (
+                <button
+                  type="button"
+                  onClick={(e) => { e.stopPropagation(); setShowMore(true); }}
+                  className="w-full text-left px-4 py-3 text-[13px] text-[#555555] hover:text-[#888888] hover:bg-[#161616] transition-colors"
+                >
+                  + More situations
+                </button>
+              ) : (
+                SITUATION_OPTIONS_MORE.map((opt) => (
+                  <button
+                    key={opt.value}
+                    type="button"
+                    onClick={() => handleSelect(opt.value)}
+                    className={`w-full text-left px-4 py-3 text-[14px] transition-colors ${
+                      situation === opt.value
+                        ? 'text-[#e8382a] bg-[rgba(232,56,42,0.06)]'
+                        : 'text-[#cccccc] hover:bg-[#1a1a1a] hover:text-[#f2f2f2]'
+                    }`}
+                  >
+                    {opt.label}
+                  </button>
+                ))
+              )}
+            </div>
+          </div>
+        )}
       </div>
-      {selected && (
-        <p className="text-xs text-text-muted pl-1">{selected.description}</p>
-      )}
     </div>
   );
 }

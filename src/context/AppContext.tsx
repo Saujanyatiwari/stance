@@ -24,6 +24,8 @@ interface AppContextValue {
   // Workspace form state
   incomingMessage: string;
   setIncomingMessage: (v: string) => void;
+  emailThread: string;
+  setEmailThread: (v: string) => void;
   situation: Situation;
   setSituation: (v: Situation) => void;
   desiredOutcome: DesiredOutcome;
@@ -31,6 +33,7 @@ interface AppContextValue {
   role: string;
   setRole: (v: string) => void;
   writingExamples: string[];
+  setWritingExamples: (examples: string[]) => void;
   addWritingExample: (example: string) => void;
   removeWritingExample: (index: number) => void;
 
@@ -68,10 +71,11 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
 
   // ─── Workspace State ────────────────────────────────────────────────────────
   const [incomingMessage, setIncomingMessage] = useState('');
+  const [emailThread, setEmailThread] = useState('');
   const [situation, setSituation] = useState<Situation>('payment-invoice');
   const [desiredOutcome, setDesiredOutcome] = useState<DesiredOutcome>('get-a-response');
   const [role, setRole] = useState('');
-  const [writingExamples, setWritingExamples] = useState<string[]>([]);
+  const [writingExamples, setWritingExamplesState] = useState<string[]>([]);
 
   // ─── Sync playbook selection into workspace ─────────────────────────────────
   const handleSelectPlaybook = useCallback(
@@ -83,7 +87,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         setTimeout(() => {
           setSituation(pb.situation || 'payment-invoice');
           setDesiredOutcome(pb.desiredOutcome || 'get-a-response');
-          setWritingExamples(pb.writingExamples ? [...pb.writingExamples] : []);
+          setWritingExamplesState(pb.writingExamples ? [...pb.writingExamples] : []);
         }, 0);
       }
     },
@@ -91,14 +95,18 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   );
 
   // ─── Writing examples ───────────────────────────────────────────────────────
+  const setWritingExamples = useCallback((examples: string[]) => {
+    setWritingExamplesState(examples);
+  }, []);
+
   const addWritingExample = useCallback((example: string) => {
     const trimmed = example.trim();
     if (!trimmed) return;
-    setWritingExamples((prev) => [...prev, trimmed]);
+    setWritingExamplesState((prev) => [...prev, trimmed]);
   }, []);
 
   const removeWritingExample = useCallback((index: number) => {
-    setWritingExamples((prev) => prev.filter((_, i) => i !== index));
+    setWritingExamplesState((prev) => prev.filter((_, i) => i !== index));
   }, []);
 
   // ─── Generation ─────────────────────────────────────────────────────────────
@@ -135,6 +143,8 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     clearPlaybookSelection: clearSelection,
     incomingMessage,
     setIncomingMessage,
+    emailThread,
+    setEmailThread,
     situation,
     setSituation,
     desiredOutcome,
@@ -142,6 +152,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     role,
     setRole,
     writingExamples,
+    setWritingExamples,
     addWritingExample,
     removeWritingExample,
     replies,

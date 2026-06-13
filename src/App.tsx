@@ -1,37 +1,35 @@
+import { useState, useRef, useEffect } from 'react';
 import { MessageSquare } from 'lucide-react';
 import { Header } from './components/layout/Header';
 import { ToastContainer } from './components/ui/Toast';
 import { AppProvider, useApp } from './context/AppContext';
+import { IncomingMessage } from './components/workspace/IncomingMessage';
+import { EmailThreadContext } from './components/workspace/EmailThreadContext';
+import { SituationSelector } from './components/workspace/SituationSelector';
+import { OutcomeSelector } from './components/workspace/OutcomeSelector';
+import { RoleInput } from './components/workspace/RoleInput';
+import { WritingExamples } from './components/workspace/WritingExamples';
+import { GenerateButton } from './components/workspace/GenerateButton';
 
-function GenerateButton() {
+const MIN_WIDTH = 320;
+const MAX_WIDTH = 560;
+const DEFAULT_WIDTH = 480;
+const STORAGE_KEY = 'stance_panel_width';
+
+function LeftPanel({ width }: { width: number }) {
   return (
-    <button
-      className="w-full py-3 rounded-[9px] text-[14px] font-semibold text-white border-none tracking-[-0.01em] transition-all duration-200"
-      style={{
-        background: 'linear-gradient(135deg, #e8382a 0%, #c5251a 100%)',
-        boxShadow: '0 0 18px rgba(232,56,42,0.30), 0 2px 8px rgba(232,56,42,0.20)',
-      }}
-      onMouseEnter={(e) => {
-        const btn = e.currentTarget as HTMLButtonElement;
-        btn.style.boxShadow = '0 0 28px rgba(232,56,42,0.50), 0 4px 16px rgba(232,56,42,0.30)';
-        btn.style.transform = 'translateY(-1px)';
-      }}
-      onMouseLeave={(e) => {
-        const btn = e.currentTarget as HTMLButtonElement;
-        btn.style.boxShadow = '0 0 18px rgba(232,56,42,0.30), 0 2px 8px rgba(232,56,42,0.20)';
-        btn.style.transform = 'translateY(0)';
-      }}
+    <div
+      className="relative flex flex-col w-full md:shrink-0 bg-[#0d0d0d] md:overflow-y-auto"
+      style={{ width: `min(100%, ${width}px)` }}
     >
-      ✦ Generate Replies
-    </button>
-  );
-}
-
-function LeftPanel() {
-  return (
-    <div className="relative flex flex-col w-full md:w-[420px] md:shrink-0 bg-[#0d0d0d] md:border-r md:border-[#1a1a1a] md:overflow-y-auto">
-      <div className="flex-1 p-6">
-        <p className="text-[13px] text-[#2a2a2a]">Input panel — coming in Prompt 2</p>
+      <div className="flex-1 p-6 space-y-6">
+        <IncomingMessage />
+        <EmailThreadContext />
+        <div className="h-px bg-[#1a1a1a]" />
+        <SituationSelector />
+        <OutcomeSelector />
+        <RoleInput />
+        <WritingExamples />
       </div>
 
       {/* Mobile: button in normal page flow */}
@@ -43,6 +41,17 @@ function LeftPanel() {
       <div className="hidden md:block sticky bottom-0 bg-[#0d0d0d] border-t border-[#1a1a1a] p-4">
         <GenerateButton />
       </div>
+    </div>
+  );
+}
+
+function DragHandle({ onMouseDown }: { onMouseDown: (e: React.MouseEvent) => void }) {
+  return (
+    <div
+      className="hidden md:flex w-[5px] shrink-0 cursor-col-resize items-stretch justify-center group"
+      onMouseDown={onMouseDown}
+    >
+      <div className="w-px bg-[#1a1a1a] group-hover:bg-[#e8382a] group-hover:opacity-50 transition-colors duration-150" />
     </div>
   );
 }
@@ -70,12 +79,56 @@ function RightPanel() {
 function AppShell() {
   const { toasts, removeToast } = useApp();
 
+  const [panelWidth, setPanelWidth] = useState<number>(() => {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    const parsed = stored ? parseInt(stored, 10) : NaN;
+    return isNaN(parsed) ? DEFAULT_WIDTH : Math.min(MAX_WIDTH, Math.max(MIN_WIDTH, parsed));
+  });
+
+  const isDragging = useRef(false);
+  const dragStartX = useRef(0);
+  const dragStartWidth = useRef(0);
+
+  useEffect(() => {
+    const onMove = (e: MouseEvent) => {
+      if (!isDragging.current) return;
+      const delta = e.clientX - dragStartX.current;
+      setPanelWidth(Math.min(MAX_WIDTH, Math.max(MIN_WIDTH, dragStartWidth.current + delta)));
+    };
+    const onUp = () => {
+      if (!isDragging.current) return;
+      isDragging.current = false;
+      document.body.style.cursor = '';
+      document.body.style.userSelect = '';
+    };
+    document.addEventListener('mousemove', onMove);
+    document.addEventListener('mouseup', onUp);
+    return () => {
+      document.removeEventListener('mousemove', onMove);
+      document.removeEventListener('mouseup', onUp);
+    };
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEY, String(panelWidth));
+  }, [panelWidth]);
+
+  const handleDragStart = (e: React.MouseEvent) => {
+    e.preventDefault();
+    isDragging.current = true;
+    dragStartX.current = e.clientX;
+    dragStartWidth.current = panelWidth;
+    document.body.style.cursor = 'col-resize';
+    document.body.style.userSelect = 'none';
+  };
+
   return (
     <div className="flex flex-col md:h-screen md:overflow-hidden bg-[#0d0d0d]">
       <Header />
 
       <div className="flex flex-col md:flex-row md:flex-1 md:overflow-hidden">
-        <LeftPanel />
+        <LeftPanel width={panelWidth} />
+        <DragHandle onMouseDown={handleDragStart} />
         <RightPanel />
       </div>
 

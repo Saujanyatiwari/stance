@@ -1,106 +1,73 @@
 import { useState } from 'react';
-import { Plus, Trash2, AlertCircle, Sparkles } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
-import { cn } from '../../utils/cn';
 
 export function WritingExamples() {
-  const { writingExamples, addWritingExample, removeWritingExample } = useApp();
-  const [draft, setDraft] = useState('');
+  const { setWritingExamples } = useApp();
+  const [isOpen, setIsOpen] = useState(true);
+  const [visible, setVisible] = useState(1);
+  const [examples, setExamples] = useState(['', '', '']);
 
-  const handleAdd = () => {
-    const trimmed = draft.trim();
-    if (!trimmed) return;
-    addWritingExample(trimmed);
-    setDraft('');
+  const updateExample = (index: number, value: string) => {
+    const next = [...examples];
+    next[index] = value;
+    setExamples(next);
+    setWritingExamples(next.filter(Boolean));
   };
-
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
-      handleAdd();
-    }
-  };
-
-  const tooFew = writingExamples.length < 3;
 
   return (
-    <div className="space-y-3">
-      <div>
-        <label className="block text-sm font-semibold text-text-primary mb-0.5">
-          My Writing Examples
-          <span className="ml-2 text-xs font-normal text-text-muted">(optional, improves style matching)</span>
-        </label>
-        <p className="text-xs text-text-muted">Past replies you like — Gemini will match your natural tone.</p>
-      </div>
+    <div className="space-y-2">
+      <button
+        type="button"
+        onClick={() => setIsOpen(!isOpen)}
+        className="w-full flex items-center justify-between text-left"
+      >
+        <div>
+          <span className="text-sm font-semibold text-text-primary">Style Guide</span>
+          <span className="ml-2 text-xs font-normal text-text-muted">(optional)</span>
+        </div>
+        <ChevronDown
+          size={15}
+          className={`text-[#555555] shrink-0 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
+        />
+      </button>
 
-      {/* Example list */}
-      {writingExamples.length > 0 && (
-        <div className="space-y-2">
-          {writingExamples.map((ex, i) => (
-            <div
-              key={i}
-              className="group flex items-start gap-2 bg-surface-2 border border-border rounded-xl px-3 py-2.5"
-            >
-              <div className="shrink-0 w-5 h-5 rounded-md bg-[rgba(232,56,42,0.1)] flex items-center justify-center mt-0.5">
-                <span className="text-[10px] font-bold text-[#e8382a]">{i + 1}</span>
-              </div>
-              <p className="text-xs text-text-primary flex-1 leading-relaxed whitespace-pre-wrap line-clamp-3">
-                {ex}
-              </p>
-              <button
-                onClick={() => removeWritingExample(i)}
-                className="shrink-0 opacity-0 group-hover:opacity-100 p-1 rounded-md hover:bg-red-500/20 hover:text-red-400 text-text-muted transition-all mt-0.5"
-                aria-label={`Remove example ${i + 1}`}
-              >
-                <Trash2 size={12} />
-              </button>
+      <div
+        className="overflow-hidden transition-all duration-300 ease-in-out"
+        style={{
+          maxHeight: isOpen ? '600px' : '0px',
+          opacity: isOpen ? 1 : 0,
+        }}
+      >
+        <div className="pt-1 space-y-3">
+          <p className="text-[11px] text-[#444444] leading-relaxed">
+            Paste replies you've written before. We'll match your natural tone.
+          </p>
+
+          {Array.from({ length: visible }).map((_, i) => (
+            <div key={i} className="space-y-1">
+              <label className="text-[11px] text-[#555555]">Example {i + 1}</label>
+              <textarea
+                value={examples[i]}
+                onChange={(e) => updateExample(i, e.target.value)}
+                placeholder="Paste a reply you've written before…"
+                rows={3}
+                className="w-full bg-surface-2 border border-border rounded-[8px] px-4 py-3 text-[16px] text-text-primary placeholder:text-[#2e2e2e] focus:outline-none focus:ring-2 focus:ring-[rgba(232,56,42,0.15)] focus:border-[#e8382a] resize-none transition-all leading-relaxed"
+              />
             </div>
           ))}
-        </div>
-      )}
 
-      {/* Helper if too few */}
-      {tooFew && writingExamples.length > 0 && (
-        <div className="flex items-start gap-2 px-3 py-2.5 rounded-xl bg-amber-400/5 border border-amber-400/20">
-          <AlertCircle size={14} className="text-amber-400 shrink-0 mt-0.5" />
-          <p className="text-xs text-amber-300 leading-relaxed">
-            Add {3 - writingExamples.length} more example{3 - writingExamples.length !== 1 ? 's' : ''} for better style matching.
-          </p>
-        </div>
-      )}
-
-      {writingExamples.length === 0 && (
-        <div className="flex items-start gap-2 px-3 py-2.5 rounded-xl bg-surface-2 border border-border border-dashed">
-          <Sparkles size={14} className="text-text-muted shrink-0 mt-0.5" />
-          <p className="text-xs text-text-muted leading-relaxed">
-            Add 2–3 past replies you like for better style matching.
-          </p>
-        </div>
-      )}
-
-      {/* Add new example */}
-      <div className="space-y-2">
-        <textarea
-          value={draft}
-          onChange={(e) => setDraft(e.target.value)}
-          onKeyDown={handleKeyDown}
-          placeholder="Paste a reply you've written before…"
-          rows={3}
-          className="w-full bg-surface-2 border border-border rounded-xl px-4 py-3 text-xs text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-[rgba(232,56,42,0.15)] focus:border-[#e8382a] resize-none transition-all leading-relaxed"
-        />
-        <button
-          onClick={handleAdd}
-          disabled={!draft.trim()}
-          className={cn(
-            'flex items-center gap-1.5 text-xs font-medium px-3 py-2 rounded-lg transition-all',
-            draft.trim()
-              ? 'text-[#e8382a] bg-[rgba(232,56,42,0.08)] border border-[rgba(232,56,42,0.15)] hover:bg-[rgba(232,56,42,0.12)]'
-              : 'text-text-muted bg-surface-2 border border-border opacity-50 cursor-not-allowed'
+          {visible < 3 && (
+            <button
+              type="button"
+              onClick={() => setVisible((v) => Math.min(v + 1, 3))}
+              className="flex items-center gap-1.5 text-[13px] text-[#555555] hover:text-[#888888] transition-colors"
+            >
+              <span className="text-base leading-none">+</span>
+              Add example
+            </button>
           )}
-        >
-          <Plus size={13} />
-          Add Example
-          <span className="text-text-muted font-normal ml-1">⌘↵</span>
-        </button>
+        </div>
       </div>
     </div>
   );
