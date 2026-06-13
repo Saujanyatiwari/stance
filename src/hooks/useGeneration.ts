@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 import type { Reply, QuickAction, Situation, DesiredOutcome } from '../types';
-import { generateReplies } from '../services/geminiService';
+import { generateReplies } from '../services/aiService';
 import { parseApiError } from '../utils/validators';
 
 interface GenerationInput {
@@ -9,6 +9,7 @@ interface GenerationInput {
   desiredOutcome: DesiredOutcome;
   role: string;
   writingExamples: string[];
+  threadContext?: string;
 }
 
 export function useGeneration() {
@@ -28,6 +29,7 @@ export function useGeneration() {
         role: input.role || '',
         incomingMessage: input.incomingMessage,
         writingExamples: input.writingExamples,
+        threadContext: input.threadContext,
       });
 
       const mapped: Reply[] = response.replies.map((r, i) => ({

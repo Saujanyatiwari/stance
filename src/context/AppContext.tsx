@@ -111,14 +111,19 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       addToast('error', 'Please paste the incoming message you want to reply to.');
       return;
     }
+    if (!situation) {
+      addToast('error', 'Please select a situation before generating.');
+      return;
+    }
     await generateReplies({
       incomingMessage,
       situation: situation as Situation,
       desiredOutcome,
       role,
       writingExamples,
+      threadContext: emailThread,
     });
-  }, [incomingMessage, situation, desiredOutcome, role, writingExamples, generateReplies, addToast]);
+  }, [incomingMessage, emailThread, situation, desiredOutcome, role, writingExamples, generateReplies, addToast]);
 
   const refineReply = useCallback(
     async (replyId: string, action: import('../types').QuickAction) => {

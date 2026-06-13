@@ -11,6 +11,7 @@ export interface GenerateInput {
   role: string;
   incomingMessage: string;
   writingExamples: string[];
+  threadContext?: string;
 }
 
 export async function generateReplies(input: GenerateInput): Promise<GenerationResponse> {
@@ -29,6 +30,7 @@ export async function generateReplies(input: GenerateInput): Promise<GenerationR
         role: input.role,
         incomingMessage: input.incomingMessage,
         writingExamples: input.writingExamples,
+        ...(input.threadContext ? { threadContext: input.threadContext } : {}),
       }),
     });
   } catch {
