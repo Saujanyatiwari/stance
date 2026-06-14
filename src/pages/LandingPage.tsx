@@ -225,8 +225,6 @@ export default function LandingPage() {
           <div style={{ marginTop: '16px', flexShrink: 0 }}>
           <div
             style={{
-              height: '45dvh',
-              flexShrink: 0,
               margin: '0 16px',
               background: '#0f0f0f',
               border: '1.5px solid #272727',
@@ -324,7 +322,7 @@ export default function LandingPage() {
             </div>
 
             {/* Content */}
-            <div style={{ position: 'relative', zIndex: 2, padding: '16px 20px 16px 20px', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start' }}>
+            <div style={{ position: 'relative', zIndex: 2, padding: '16px 20px 24px 20px', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start' }}>
               <div
                 style={{
                   color: '#3d3d3d',
@@ -395,30 +393,29 @@ export default function LandingPage() {
                 </span>
               </div>
 
-            </div>
-
-            {/* CTA pill — absolute so pill animation never causes layout shift */}
-            <div style={{ position: 'absolute', bottom: '16px', left: '20px', zIndex: 3 }}>
-              <button
-                onClick={() => navigate('/app')}
-                onMouseEnter={() => setScreenCtaHover(true)}
-                onMouseLeave={() => setScreenCtaHover(false)}
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  background: '#0f0f0f',
-                  border: '1px solid #242424',
-                  borderRadius: '20px',
-                  padding: '7px 16px',
-                  color: '#fff',
-                  fontSize: '14px',
-                  cursor: 'pointer',
-                  boxShadow: screenCtaHover ? '0 0 18px rgba(180,20,20,0.6)' : 'none',
-                  transition: 'box-shadow 0.18s ease',
-                }}
-              >
-                Try it free →
-              </button>
+              {/* CTA pill */}
+              <div style={{ marginTop: '18px', alignSelf: 'flex-start' }}>
+                <button
+                  onClick={() => navigate('/app')}
+                  onMouseEnter={() => setScreenCtaHover(true)}
+                  onMouseLeave={() => setScreenCtaHover(false)}
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    background: '#0f0f0f',
+                    border: '1px solid #242424',
+                    borderRadius: '20px',
+                    padding: '7px 16px',
+                    color: '#fff',
+                    fontSize: '14px',
+                    cursor: 'pointer',
+                    boxShadow: screenCtaHover ? '0 0 18px rgba(180,20,20,0.6)' : 'none',
+                    transition: 'box-shadow 0.18s ease',
+                  }}
+                >
+                  Try it free →
+                </button>
+              </div>
             </div>
           </div>
           </div>
