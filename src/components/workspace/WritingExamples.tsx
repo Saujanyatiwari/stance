@@ -56,7 +56,7 @@ export function WritingExamples() {
                 onChange={(e) => updateExample(i, e.target.value)}
                 placeholder="Paste a reply you've written before…"
                 rows={3}
-                className="w-full bg-surface-2 border border-border rounded-[8px] px-4 py-3 text-[16px] text-text-primary placeholder:text-[#2e2e2e] focus:outline-none focus:ring-2 focus:ring-[rgba(232,56,42,0.15)] focus:border-[#e8382a] resize-none transition-all leading-relaxed"
+                className="w-full bg-surface-2 border border-border rounded-[8px] px-4 py-3 text-[16px] text-text-primary placeholder:text-[#2e2e2e] focus:outline-none focus:ring-2 focus:ring-[rgba(224,48,48,0.15)] focus:border-[#e03030] resize-none transition-all leading-relaxed"
               />
             </div>
           ))}

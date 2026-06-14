@@ -105,7 +105,7 @@ export function RoleInput() {
           onClick={handleToggle}
           className={`w-full flex items-center justify-between bg-surface-2 border rounded-[8px] px-4 py-3 transition-colors text-left ${
             isOpen
-              ? 'border-[#e8382a]'
+              ? 'border-[#e03030]'
               : 'border-border hover:border-[#2a2a2a]'
           }`}
         >
@@ -138,7 +138,7 @@ export function RoleInput() {
                   onClick={() => handlePreset(label)}
                   className={`w-full text-left px-4 py-3 text-[14px] transition-colors ${
                     !isOther && role === label
-                      ? 'text-[#e8382a] bg-[rgba(232,56,42,0.06)]'
+                      ? 'text-[#e03030] bg-[rgba(224,48,48,0.06)]'
                       : 'text-[#cccccc] hover:bg-[#1a1a1a] hover:text-[#f2f2f2]'
                   }`}
                 >
@@ -164,7 +164,7 @@ export function RoleInput() {
                     onClick={() => handlePreset(label)}
                     className={`w-full text-left px-4 py-3 text-[14px] transition-colors ${
                       !isOther && role === label
-                        ? 'text-[#e8382a] bg-[rgba(232,56,42,0.06)]'
+                        ? 'text-[#e03030] bg-[rgba(224,48,48,0.06)]'
                         : 'text-[#cccccc] hover:bg-[#1a1a1a] hover:text-[#f2f2f2]'
                     }`}
                   >
@@ -180,7 +180,7 @@ export function RoleInput() {
                 onClick={handleOther}
                 className={`w-full text-left px-4 py-3 text-[14px] transition-colors ${
                   isOther
-                    ? 'text-[#e8382a] bg-[rgba(232,56,42,0.06)]'
+                    ? 'text-[#e03030] bg-[rgba(224,48,48,0.06)]'
                     : 'text-[#888888] hover:bg-[#1a1a1a] hover:text-[#f2f2f2]'
                 }`}
               >
@@ -197,7 +197,7 @@ export function RoleInput() {
           value={customRole}
           onChange={(e) => handleCustomChange(e.target.value)}
           placeholder="e.g. Freelance Illustrator, Fractional CMO…"
-          className="w-full bg-surface-2 border border-border rounded-[8px] px-4 py-3 text-[16px] text-text-primary placeholder:text-[#2e2e2e] focus:outline-none focus:ring-2 focus:ring-[rgba(232,56,42,0.15)] focus:border-[#e8382a] transition-all"
+          className="w-full bg-surface-2 border border-border rounded-[8px] px-4 py-3 text-[16px] text-text-primary placeholder:text-[#2e2e2e] focus:outline-none focus:ring-2 focus:ring-[rgba(224,48,48,0.15)] focus:border-[#e03030] transition-all"
         />
       )}
     </div>
