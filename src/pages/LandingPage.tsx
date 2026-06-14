@@ -341,7 +341,7 @@ export default function LandingPage() {
               <p
                 style={{
                   color: '#d8d8d8',
-                  fontSize: '17px',
+                  fontSize: '15px',
                   lineHeight: 1.6,
                   margin: '0 0 22px 0',
                   minHeight: '56px',
@@ -363,61 +363,62 @@ export default function LandingPage() {
                   }}
                 />
               </p>
-              {/* Emotion pill — fixed-height wrapper keeps the CTA button from shifting */}
-              <div style={{ minHeight: '62px', flexShrink: 0 }}>
+              {/* Emotion pill */}
+              <div
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  background: 'transparent',
+                  border: '1px solid #242424',
+                  borderRadius: '20px',
+                  padding: '7px 16px',
+                  flexShrink: 0,
+                  alignSelf: 'flex-start',
+                  maxWidth: '60%',
+                  minWidth: 0,
+                  opacity: isPaused ? 1 : 0,
+                  transition: 'opacity 0.3s ease',
+                }}
+              >
                 <div
                   style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '8px',
-                    background: 'transparent',
-                    border: '1px solid #242424',
-                    borderRadius: '20px',
-                    padding: '7px 16px',
-                    maxWidth: '60%',
-                    minWidth: 0,
-                    opacity: isPaused ? 1 : 0,
-                    transition: 'opacity 0.3s ease',
+                    width: '8px',
+                    height: '8px',
+                    borderRadius: '50%',
+                    background: '#e03030',
+                    flexShrink: 0,
                   }}
-                >
-                  <div
-                    style={{
-                      width: '8px',
-                      height: '8px',
-                      borderRadius: '50%',
-                      background: '#e03030',
-                      flexShrink: 0,
-                    }}
-                  />
-                  <span style={{ color: '#777', fontSize: '14px' }}>
-                    {SCENARIOS[scenarioIndex].question}
-                  </span>
-                </div>
+                />
+                <span style={{ color: '#777', fontSize: '14px' }}>
+                  {SCENARIOS[scenarioIndex].question}
+                </span>
               </div>
 
-              {/* CTA pill */}
-              <div style={{ paddingTop: '20px' }}>
-                <button
-                  onClick={() => navigate('/app')}
-                  onMouseEnter={() => setScreenCtaHover(true)}
-                  onMouseLeave={() => setScreenCtaHover(false)}
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    background: '#0f0f0f',
-                    border: '1px solid #242424',
-                    borderRadius: '20px',
-                    padding: '7px 16px',
-                    color: '#fff',
-                    fontSize: '14px',
-                    cursor: 'pointer',
-                    boxShadow: screenCtaHover ? '0 0 18px rgba(180,20,20,0.6)' : 'none',
-                    transition: 'box-shadow 0.18s ease',
-                  }}
-                >
-                  Try it free →
-                </button>
-              </div>
+            </div>
+
+            {/* CTA pill — absolute so pill animation never causes layout shift */}
+            <div style={{ position: 'absolute', bottom: '16px', left: '20px', zIndex: 3 }}>
+              <button
+                onClick={() => navigate('/app')}
+                onMouseEnter={() => setScreenCtaHover(true)}
+                onMouseLeave={() => setScreenCtaHover(false)}
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  background: '#0f0f0f',
+                  border: '1px solid #242424',
+                  borderRadius: '20px',
+                  padding: '7px 16px',
+                  color: '#fff',
+                  fontSize: '14px',
+                  cursor: 'pointer',
+                  boxShadow: screenCtaHover ? '0 0 18px rgba(180,20,20,0.6)' : 'none',
+                  transition: 'box-shadow 0.18s ease',
+                }}
+              >
+                Try it free →
+              </button>
             </div>
           </div>
           </div>
