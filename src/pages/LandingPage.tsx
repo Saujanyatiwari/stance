@@ -81,7 +81,7 @@ export default function LandingPage() {
     <div
       style={{
         background: '#080808',
-        height: '100vh',
+        height: '100dvh',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -179,7 +179,8 @@ export default function LandingPage() {
             flexDirection: 'column',
             alignItems: 'stretch',
             width: '100%',
-            height: '100vh',
+            height: '100dvh',
+            overflow: 'hidden',
             paddingTop: '56px',
             boxSizing: 'border-box',
           }}
@@ -220,9 +221,8 @@ export default function LandingPage() {
           {/* Mobile floating card */}
           <div
             style={{
-              flex: 1,
-              minHeight: 0,
-              maxHeight: 'calc(100vh - 175px)',
+              height: '45dvh',
+              flexShrink: 0,
               margin: '0 16px',
               background: '#0f0f0f',
               border: '1.5px solid #272727',
@@ -320,7 +320,7 @@ export default function LandingPage() {
             </div>
 
             {/* Content */}
-            <div style={{ position: 'relative', zIndex: 2, padding: '16px 20px 16px 20px', flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column' }}>
+            <div style={{ position: 'relative', zIndex: 2, padding: '16px 20px 16px 20px', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start' }}>
               <div
                 style={{
                   color: '#3d3d3d',
@@ -390,8 +390,8 @@ export default function LandingPage() {
                 </span>
               </div>
 
-              {/* CTA pill — pinned to bottom */}
-              <div style={{ marginTop: 'auto', paddingTop: '12px' }}>
+              {/* CTA pill */}
+              <div style={{ paddingTop: '12px' }}>
                 <button
                   onClick={() => navigate('/app')}
                   onMouseEnter={() => setScreenCtaHover(true)}
