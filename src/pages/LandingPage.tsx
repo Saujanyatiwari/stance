@@ -222,7 +222,7 @@ export default function LandingPage() {
           </div>
 
           {/* Mobile floating card */}
-          <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', overflow: 'hidden' }}>
+          <div style={{ marginTop: '16px', flexShrink: 0 }}>
           <div
             style={{
               height: '45dvh',
@@ -363,39 +363,40 @@ export default function LandingPage() {
                   }}
                 />
               </p>
-              {/* Emotion pill */}
-              <div
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  background: 'transparent',
-                  border: '1px solid #242424',
-                  borderRadius: '20px',
-                  padding: '7px 16px',
-                  flexShrink: 0,
-                  alignSelf: 'flex-start',
-                  width: 'fit-content',
-                  opacity: isPaused ? 1 : 0,
-                  transition: 'opacity 0.3s ease',
-                }}
-              >
+              {/* Emotion pill — fixed-height wrapper keeps the CTA button from shifting */}
+              <div style={{ minHeight: '62px', flexShrink: 0 }}>
                 <div
                   style={{
-                    width: '8px',
-                    height: '8px',
-                    borderRadius: '50%',
-                    background: '#e03030',
-                    flexShrink: 0,
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    background: 'transparent',
+                    border: '1px solid #242424',
+                    borderRadius: '20px',
+                    padding: '7px 16px',
+                    maxWidth: '60%',
+                    minWidth: 0,
+                    opacity: isPaused ? 1 : 0,
+                    transition: 'opacity 0.3s ease',
                   }}
-                />
-                <span style={{ color: '#777', fontSize: '14px', whiteSpace: 'nowrap' }}>
-                  {SCENARIOS[scenarioIndex].question}
-                </span>
+                >
+                  <div
+                    style={{
+                      width: '8px',
+                      height: '8px',
+                      borderRadius: '50%',
+                      background: '#e03030',
+                      flexShrink: 0,
+                    }}
+                  />
+                  <span style={{ color: '#777', fontSize: '14px' }}>
+                    {SCENARIOS[scenarioIndex].question}
+                  </span>
+                </div>
               </div>
 
               {/* CTA pill */}
-              <div style={{ paddingTop: '12px' }}>
+              <div style={{ paddingTop: '20px' }}>
                 <button
                   onClick={() => navigate('/app')}
                   onMouseEnter={() => setScreenCtaHover(true)}
