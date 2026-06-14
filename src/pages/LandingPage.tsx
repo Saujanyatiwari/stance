@@ -186,7 +186,7 @@ export default function LandingPage() {
           }}
         >
           {/* Mobile headline */}
-          <div style={{ textAlign: 'center', padding: '12px 24px 20px', flexShrink: 0 }}>
+          <div style={{ textAlign: 'center', padding: '12px 24px 8px', flexShrink: 0 }}>
             <h1
               style={{
                 color: '#fff',
@@ -216,9 +216,13 @@ export default function LandingPage() {
                 />
               )}
             </h1>
+            <p style={{ color: '#555', fontSize: '13px', margin: '10px 0 0 0', textAlign: 'center' }}>
+              Tell Stance the situation. Get 3 confident replies in seconds.
+            </p>
           </div>
 
           {/* Mobile floating card */}
+          <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', overflow: 'hidden' }}>
           <div
             style={{
               height: '45dvh',
@@ -415,6 +419,7 @@ export default function LandingPage() {
               </div>
             </div>
           </div>
+          </div>
 
           {/* Mobile bottom text */}
           <div
@@ -433,9 +438,6 @@ export default function LandingPage() {
               zIndex: 10,
             }}
           >
-            <p style={{ color: '#555', fontSize: '12px', margin: 0, textAlign: 'center' }}>
-              Tell Stance the situation. Get 3 confident replies in seconds.
-            </p>
             <p style={{ color: '#666', fontSize: '13px', margin: 0, textAlign: 'center', fontWeight: 600 }}>
               Free · Private · No account needed
             </p>
