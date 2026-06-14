@@ -1,3 +1,4 @@
+import React from 'react';
 import { useApp } from '../../context/AppContext';
 import { ReplyCard } from './ReplyCard';
 import { theme } from '../../theme';
@@ -64,7 +65,59 @@ export function ReplyGrid() {
     );
   }
 
-  if (replies.length === 0) return null;
+  if (replies.length === 0) {
+    const steps = [
+      'Paste the message you received',
+      'Select the situation type',
+      'Hit Generate — get 3 replies instantly',
+    ];
+    return (
+      <div
+        style={{
+          minHeight: '50vh',
+          height: '100%',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          background: '#080808',
+        }}
+      >
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
+          {/* Icon ring */}
+          <div style={{ width: '56px', height: '56px', borderRadius: '50%', border: '0.5px solid #1e1e1e', background: '#111', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '24px', flexShrink: 0 }}>
+            <svg width="22" height="22" viewBox="0 0 20 20" fill="none">
+              <path d="M2 4a2 2 0 012-2h12a2 2 0 012 2v8a2 2 0 01-2 2H6l-4 4V4z" stroke="#cc2424" strokeWidth="1.3" strokeLinejoin="round" />
+            </svg>
+          </div>
+
+          {/* Title */}
+          <p style={{ color: '#fff', fontSize: '22px', fontWeight: 500, margin: '0 0 12px 0', whiteSpace: 'nowrap' }}>
+            Your replies will appear here
+          </p>
+
+          {/* Subtitle */}
+          <p style={{ color: '#333', fontSize: '14px', lineHeight: 1.6, margin: '0 0 28px 0', maxWidth: '260px' }}>
+            Fill in the message and situation on the left, then hit Generate.
+          </p>
+
+          {/* Divider */}
+          <div style={{ width: '40px', height: '1px', background: '#1e1e1e', marginBottom: '28px' }} />
+
+          {/* Steps */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+            {steps.map((step, i) => (
+              <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                <div style={{ width: '26px', height: '26px', borderRadius: '50%', border: '0.5px solid #1e1e1e', background: '#111', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: '12px', color: '#333' }}>
+                  {i + 1}
+                </div>
+                <span style={{ color: '#333', fontSize: '14px', textAlign: 'left', lineHeight: 1.4 }}>{step}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="p-6 md:p-8 space-y-5">
