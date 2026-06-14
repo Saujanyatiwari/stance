@@ -12,16 +12,16 @@ export const theme = {
     textHint:        '#444444',
     textPlaceholder: '#2e2e2e',
 
-    accent:          '#e8382a',
-    accentDark:      '#c5251a',
-    accentGlow:      'rgba(232, 56, 42, 0.35)',
-    accentGlowSubtle:'rgba(232, 56, 42, 0.08)',
+    accent:          '#8b0000',
+    accentDark:      '#6e0000',
+    accentGlow:      'rgba(139, 0, 0, 0.5)',
+    accentGlowSubtle:'rgba(139, 0, 0, 0.12)',
 
     firm: {
-      color:   '#e8382a',
-      glow:    'rgba(232, 56, 42, 0.16)',
-      bgTint:  '#0f0c0c',
-      border:  'rgba(232, 56, 42, 0.2)',
+      color:   '#8b0000',
+      glow:    'rgba(139, 0, 0, 0.22)',
+      bgTint:  '#0c0808',
+      border:  'rgba(139, 0, 0, 0.28)',
     },
     diplomatic: {
       color:   '#7a9fff',
@@ -39,7 +39,7 @@ export const theme = {
     statusSuccess: '#30c88c',
     statusWarning: '#ffb432',
     statusInfo:    '#7a9fff',
-    statusDanger:  '#e8382a',
+    statusDanger:  '#8b0000',
   },
 
   typography: {
@@ -60,27 +60,27 @@ export const theme = {
   },
 
   shadows: {
-    ctaRest:         '0 0 18px rgba(232,56,42,0.35), 0 2px 8px rgba(232,56,42,0.25)',
-    ctaHover:        '0 0 28px rgba(232,56,42,0.55), 0 4px 16px rgba(232,56,42,0.35)',
-    inputFocus:      '0 0 0 3px rgba(232,56,42,0.07), 0 0 14px rgba(232,56,42,0.06)',
-    cardFirmHover:       '0 0 32px rgba(232,56,42,0.16)',
+    ctaRest:         '0 0 22px rgba(139,0,0,0.55), 0 2px 12px rgba(139,0,0,0.40)',
+    ctaHover:        '0 0 32px rgba(139,0,0,0.75), 0 4px 18px rgba(139,0,0,0.55)',
+    inputFocus:      '0 0 0 3px rgba(139,0,0,0.1), 0 0 14px rgba(139,0,0,0.08)',
+    cardFirmHover:       '0 0 32px rgba(139,0,0,0.22)',
     cardDiplomaticHover: '0 0 32px rgba(122,159,255,0.13)',
     cardBriefHover:      '0 0 32px rgba(48,200,140,0.13)',
   },
 
   buttons: {
     primary: {
-      background: 'linear-gradient(135deg, #e8382a 0%, #c5251a 100%)',
+      background: 'linear-gradient(135deg, #8b0000 0%, #6e0000 100%)',
       color:      '#ffffff',
-      border:     '1px solid rgba(232,56,42,0.4)',
-      shadowRest: '0 0 18px rgba(232,56,42,0.35), 0 2px 8px rgba(232,56,42,0.25)',
-      shadowHover:'0 0 28px rgba(232,56,42,0.55), 0 4px 16px rgba(232,56,42,0.35)',
+      border:     '1px solid rgba(139,0,0,0.5)',
+      shadowRest: '0 0 22px rgba(139,0,0,0.55), 0 2px 12px rgba(139,0,0,0.40)',
+      shadowHover:'0 0 32px rgba(139,0,0,0.75), 0 4px 18px rgba(139,0,0,0.55)',
     },
     secondary: {
       background:      '#1a1a1a',
       color:           '#cccccc',
       border:          '1px solid #2a2a2a',
-      hoverBorderColor:'rgba(232,56,42,0.25)',
+      hoverBorderColor:'rgba(139,0,0,0.3)',
     },
     ghost: {
       background:      'transparent',
@@ -109,7 +109,7 @@ export const theme = {
   },
 
   tags: {
-    firm:       { background: 'rgba(232,56,42,0.1)',   color: '#e8382a', border: 'rgba(232,56,42,0.2)' },
+    firm:       { background: 'rgba(139,0,0,0.15)',    color: '#8b0000', border: 'rgba(139,0,0,0.28)' },
     diplomatic: { background: 'rgba(122,159,255,0.1)', color: '#7a9fff', border: 'rgba(122,159,255,0.2)' },
     brief:      { background: 'rgba(48,200,140,0.1)',  color: '#30c88c', border: 'rgba(48,200,140,0.2)' },
   },

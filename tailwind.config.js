@@ -31,17 +31,17 @@ export default {
         'rf-hint':        '#444444',
         'rf-placeholder': '#2e2e2e',
 
-        'rf-accent':      '#e8382a',
-        'rf-accent-dark': '#c5251a',
+        'rf-accent':      '#8b0000',
+        'rf-accent-dark': '#6e0000',
 
-        'rf-firm':        '#e8382a',
+        'rf-firm':        '#8b0000',
         'rf-diplomatic':  '#7a9fff',
         'rf-brief':       '#30c88c',
 
         'rf-success':     '#30c88c',
         'rf-warning':     '#ffb432',
         'rf-info':        '#7a9fff',
-        'rf-danger':      '#e8382a',
+        'rf-danger':      '#8b0000',
       },
       fontFamily: {
         sans: ['-apple-system', 'BlinkMacSystemFont', 'Inter', 'Segoe UI', 'sans-serif'],
@@ -70,10 +70,10 @@ export default {
       },
       boxShadow: {
         // Design-system tokens
-        'rf-cta':                  '0 0 18px rgba(232,56,42,0.35), 0 2px 8px rgba(232,56,42,0.25)',
-        'rf-cta-hover':            '0 0 28px rgba(232,56,42,0.55), 0 4px 16px rgba(232,56,42,0.35)',
-        'rf-input-focus':          '0 0 0 3px rgba(232,56,42,0.07), 0 0 14px rgba(232,56,42,0.06)',
-        'rf-card-firm-hover':      '0 0 32px rgba(232,56,42,0.16)',
+        'rf-cta':                  '0 0 22px rgba(139,0,0,0.55), 0 2px 12px rgba(139,0,0,0.40)',
+        'rf-cta-hover':            '0 0 32px rgba(139,0,0,0.75), 0 4px 18px rgba(139,0,0,0.55)',
+        'rf-input-focus':          '0 0 0 3px rgba(139,0,0,0.1), 0 0 14px rgba(139,0,0,0.08)',
+        'rf-card-firm-hover':      '0 0 32px rgba(139,0,0,0.22)',
         'rf-card-diplomatic-hover':'0 0 32px rgba(122,159,255,0.13)',
         'rf-card-brief-hover':     '0 0 32px rgba(48,200,140,0.13)',
       },

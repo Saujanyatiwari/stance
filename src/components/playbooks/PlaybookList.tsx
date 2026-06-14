@@ -70,7 +70,7 @@ export function PlaybookList({ onClose, onLoad, onEdit, onCreate }: PlaybookList
         {custom.map((pb) => (
           <div key={pb.id}>
             {deletingId === pb.id ? (
-              <div className="px-4 py-3 bg-[rgba(232,56,42,0.04)] border-l-2 border-[#e8382a]">
+              <div className="px-4 py-3 bg-[rgba(139,0,0,0.06)] border-l-2 border-[#8b0000]">
                 <p className="text-[12px] text-[#888888] mb-2.5">
                   Delete <span className="text-[#cccccc]">"{pb.name}"</span>?
                 </p>
@@ -78,7 +78,7 @@ export function PlaybookList({ onClose, onLoad, onEdit, onCreate }: PlaybookList
                   <button
                     type="button"
                     onClick={() => handleDeleteConfirm(pb.id)}
-                    className="text-[12px] font-semibold text-white bg-[#e8382a] hover:bg-[#c5251a] px-3 py-1 rounded-[5px] transition-colors"
+                    className="text-[12px] font-semibold text-white bg-[#8b0000] hover:bg-[#6e0000] px-3 py-1 rounded-[5px] transition-colors"
                   >
                     Delete
                   </button>
@@ -112,7 +112,7 @@ export function PlaybookList({ onClose, onLoad, onEdit, onCreate }: PlaybookList
                   <button
                     type="button"
                     onClick={(e) => { e.stopPropagation(); setDeletingId(pb.id); }}
-                    className="w-6 h-6 flex items-center justify-center rounded text-[#444444] hover:text-[#e8382a] hover:bg-[rgba(232,56,42,0.08)] transition-colors"
+                    className="w-6 h-6 flex items-center justify-center rounded text-[#444444] hover:text-[#8b0000] hover:bg-[rgba(139,0,0,0.12)] transition-colors"
                     aria-label="Delete playbook"
                   >
                     <Trash2 size={11} />
@@ -140,7 +140,7 @@ export function PlaybookList({ onClose, onLoad, onEdit, onCreate }: PlaybookList
           title={!canAddPlaybook ? 'Free limit reached — 3 custom playbooks maximum.' : undefined}
           className={`w-full text-center py-2 rounded-[7px] text-[13px] font-medium transition-colors ${
             canAddPlaybook
-              ? 'text-[#e8382a] hover:bg-[rgba(232,56,42,0.06)] hover:text-[#ff4d3d]'
+              ? 'text-[#b10000] hover:bg-[rgba(177,0,0,0.08)] hover:text-[#cc0000]'
               : 'text-[#2e2e2e] cursor-not-allowed'
           }`}
         >

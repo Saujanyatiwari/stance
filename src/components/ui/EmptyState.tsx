@@ -15,7 +15,7 @@ export function EmptyState({ onGetStarted }: EmptyStateProps) {
       </h3>
       <p className="text-sm text-text-muted max-w-xs leading-relaxed">
         Paste an incoming message, choose your situation and desired outcome, then hit{' '}
-        <span className="text-[#e8382a] font-medium">Generate 3 Replies</span>.
+        <span className="text-[#8b0000] font-medium">Generate 3 Replies</span>.
       </p>
       <div className="mt-8 grid grid-cols-3 gap-3 w-full max-w-sm opacity-30 pointer-events-none select-none">
         {['Variation 1', 'Variation 2', 'Variation 3'].map((v) => (
@@ -25,7 +25,7 @@ export function EmptyState({ onGetStarted }: EmptyStateProps) {
       {onGetStarted && (
         <button
           onClick={onGetStarted}
-          className="mt-6 text-sm text-[#e8382a] hover:text-[#c5251a] transition-colors underline underline-offset-2"
+          className="mt-6 text-sm text-[#8b0000] hover:text-[#cc2424] transition-colors underline underline-offset-2"
         >
           Load a starter playbook
         </button>

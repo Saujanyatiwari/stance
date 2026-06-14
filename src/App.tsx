@@ -54,7 +54,7 @@ function DragHandle({ onMouseDown }: { onMouseDown: (e: React.MouseEvent) => voi
       className="hidden md:flex w-[5px] shrink-0 cursor-col-resize items-stretch justify-center group"
       onMouseDown={onMouseDown}
     >
-      <div className="w-px bg-[#1a1a1a] group-hover:bg-[#e8382a] group-hover:opacity-50 transition-colors duration-150" />
+      <div className="w-px bg-[#1a1a1a] group-hover:bg-[#8b0000] group-hover:opacity-50 transition-colors duration-150" />
     </div>
   );
 }

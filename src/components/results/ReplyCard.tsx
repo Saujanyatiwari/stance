@@ -28,7 +28,7 @@ const CARD_CONFIGS: CardConfig[] = [
     color: theme.colors.firm.color,
     bgTint: theme.colors.firm.bgTint,
     border: theme.colors.firm.border,
-    borderHover: 'rgba(232, 56, 42, 0.45)',
+    borderHover: 'rgba(139, 0, 0, 0.55)',
     shadowHover: theme.shadows.cardFirmHover,
     tagBg: theme.tags.firm.background,
     tonePills: [

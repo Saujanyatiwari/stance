@@ -25,8 +25,8 @@ export function Header() {
       {/* Left: red dot + wordmark */}
       <div className="flex items-center gap-2">
         <div
-          className="w-2 h-2 rounded-full bg-[#e8382a] shrink-0"
-          style={{ boxShadow: '0 0 8px rgba(232,56,42,0.7)' }}
+          className="w-2 h-2 rounded-full bg-[#b10000] shrink-0"
+          style={{ boxShadow: '0 0 8px rgba(177,0,0,0.7)' }}
         />
         <span className="font-bold text-[15px] text-[#f2f2f2] tracking-[-0.02em]">
           Stance
@@ -46,7 +46,7 @@ export function Header() {
           }`}
         >
           Playbooks
-          <span className="bg-[rgba(232,56,42,0.15)] text-[#e8382a] text-[10px] font-bold px-1.5 py-px rounded-[10px] leading-none">
+          <span className="bg-[rgba(177,0,0,0.15)] text-[#b10000] text-[10px] font-bold px-1.5 py-px rounded-[10px] leading-none">
             {allPlaybooks.length}
           </span>
         </button>

@@ -21,11 +21,11 @@ export function Button({
   ...props
 }: ButtonProps) {
   const base =
-    'inline-flex items-center justify-center gap-2 font-medium rounded-[8px] transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#e8382a] select-none';
+    'inline-flex items-center justify-center gap-2 font-medium rounded-[8px] transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#8b0000] select-none';
 
   const variants = {
     primary:
-      'bg-[#e8382a] hover:bg-[#c5251a] active:bg-[#a81d13] text-white focus:ring-[#e8382a]',
+      'bg-[#8b0000] hover:bg-[#6e0000] active:bg-[#560000] text-white focus:ring-[#8b0000]',
     secondary:
       'bg-surface-2 hover:bg-border text-text-primary border border-border hover:border-muted transition-colors',
     ghost:

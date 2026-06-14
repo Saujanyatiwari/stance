@@ -66,7 +66,7 @@ export function SituationSelector() {
           onClick={handleToggle}
           className={`w-full flex items-center justify-between bg-surface-2 border rounded-[8px] px-4 py-3 transition-colors text-left ${
             isOpen
-              ? 'border-[#e8382a] ring-2 ring-[rgba(232,56,42,0.12)]'
+              ? 'border-[#8b0000] ring-2 ring-[rgba(139,0,0,0.18)]'
               : 'border-border hover:border-[#2a2a2a]'
           }`}
         >
@@ -99,7 +99,7 @@ export function SituationSelector() {
                   onClick={() => handleSelect(opt.value)}
                   className={`w-full text-left px-4 py-3 text-[14px] transition-colors ${
                     situation === opt.value
-                      ? 'text-[#e8382a] bg-[rgba(232,56,42,0.06)]'
+                      ? 'text-[#8b0000] bg-[rgba(139,0,0,0.1)]'
                       : 'text-[#cccccc] hover:bg-[#1a1a1a] hover:text-[#f2f2f2]'
                   }`}
                 >
@@ -125,7 +125,7 @@ export function SituationSelector() {
                     onClick={() => handleSelect(opt.value)}
                     className={`w-full text-left px-4 py-3 text-[14px] transition-colors ${
                       situation === opt.value
-                        ? 'text-[#e8382a] bg-[rgba(232,56,42,0.06)]'
+                        ? 'text-[#8b0000] bg-[rgba(139,0,0,0.1)]'
                         : 'text-[#cccccc] hover:bg-[#1a1a1a] hover:text-[#f2f2f2]'
                     }`}
                   >

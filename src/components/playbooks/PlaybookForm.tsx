@@ -86,8 +86,8 @@ export function PlaybookForm({ playbook, onSave, onCancel }: PlaybookFormProps) 
   };
 
   const inputBase = 'w-full bg-[#161616] border rounded-[8px] px-3 py-2.5 text-[13px] text-[#f2f2f2] placeholder:text-[#333333] focus:outline-none transition-all';
-  const inputIdle = 'border-[#222222] focus:border-[#e8382a] focus:ring-2 focus:ring-[rgba(232,56,42,0.08)]';
-  const inputError = 'border-[#e8382a] ring-1 ring-[rgba(232,56,42,0.2)]';
+  const inputIdle = 'border-[#222222] focus:border-[#8b0000] focus:ring-2 focus:ring-[rgba(139,0,0,0.12)]';
+  const inputError = 'border-[#8b0000] ring-1 ring-[rgba(139,0,0,0.28)]';
 
   return (
     <div className="flex flex-col" style={{ maxHeight: '82vh' }}>
@@ -112,7 +112,7 @@ export function PlaybookForm({ playbook, onSave, onCancel }: PlaybookFormProps) 
         {/* Name */}
         <div className="space-y-1.5">
           <label className="block text-[11px] font-semibold text-[#666666] uppercase tracking-[0.06em]">
-            Name <span className="text-[#e8382a]">*</span>
+            Name <span className="text-[#8b0000]">*</span>
           </label>
           <input
             type="text"
@@ -122,13 +122,13 @@ export function PlaybookForm({ playbook, onSave, onCancel }: PlaybookFormProps) 
             className={`${inputBase} ${errors.name ? inputError : inputIdle}`}
             autoFocus
           />
-          {errors.name && <p className="text-[11px] text-[#e8382a]">{errors.name}</p>}
+          {errors.name && <p className="text-[11px] text-[#8b0000]">{errors.name}</p>}
         </div>
 
         {/* Situation */}
         <div className="space-y-1.5">
           <label className="block text-[11px] font-semibold text-[#666666] uppercase tracking-[0.06em]">
-            Situation <span className="text-[#e8382a]">*</span>
+            Situation <span className="text-[#8b0000]">*</span>
           </label>
           <div className="relative">
             <select
@@ -144,13 +144,13 @@ export function PlaybookForm({ playbook, onSave, onCancel }: PlaybookFormProps) 
             </select>
             <ChevronDown size={13} className="absolute right-3 top-1/2 -translate-y-1/2 text-[#555555] pointer-events-none" />
           </div>
-          {errors.situation && <p className="text-[11px] text-[#e8382a]">{errors.situation}</p>}
+          {errors.situation && <p className="text-[11px] text-[#8b0000]">{errors.situation}</p>}
         </div>
 
         {/* Desired Outcome */}
         <div className="space-y-1.5">
           <label className="block text-[11px] font-semibold text-[#666666] uppercase tracking-[0.06em]">
-            Desired Outcome <span className="text-[#e8382a]">*</span>
+            Desired Outcome <span className="text-[#8b0000]">*</span>
           </label>
           <div className="relative">
             <select
@@ -166,7 +166,7 @@ export function PlaybookForm({ playbook, onSave, onCancel }: PlaybookFormProps) 
             </select>
             <ChevronDown size={13} className="absolute right-3 top-1/2 -translate-y-1/2 text-[#555555] pointer-events-none" />
           </div>
-          {errors.outcome && <p className="text-[11px] text-[#e8382a]">{errors.outcome}</p>}
+          {errors.outcome && <p className="text-[11px] text-[#8b0000]">{errors.outcome}</p>}
         </div>
 
         {/* Role */}
@@ -234,7 +234,7 @@ export function PlaybookForm({ playbook, onSave, onCancel }: PlaybookFormProps) 
                     onChange={(e) => updateExample(i, e.target.value)}
                     placeholder="Paste a reply you've written before…"
                     rows={2}
-                    className="w-full bg-[#111111] border border-[#222222] rounded-[8px] px-3 py-2.5 text-[12px] text-[#f2f2f2] placeholder:text-[#2a2a2a] focus:outline-none focus:border-[#e8382a] focus:ring-2 focus:ring-[rgba(232,56,42,0.08)] resize-none transition-all leading-relaxed"
+                    className="w-full bg-[#111111] border border-[#222222] rounded-[8px] px-3 py-2.5 text-[12px] text-[#f2f2f2] placeholder:text-[#2a2a2a] focus:outline-none focus:border-[#8b0000] focus:ring-2 focus:ring-[rgba(139,0,0,0.12)] resize-none transition-all leading-relaxed"
                   />
                 </div>
               ))}
@@ -266,8 +266,8 @@ export function PlaybookForm({ playbook, onSave, onCancel }: PlaybookFormProps) 
         <button
           type="button"
           onClick={handleSave}
-          className="flex-1 py-2 rounded-[7px] text-[13px] font-semibold bg-[#e8382a] text-white hover:bg-[#c5251a] transition-colors"
-          style={{ boxShadow: '0 0 12px rgba(232,56,42,0.25)' }}
+          className="flex-1 py-2 rounded-[7px] text-[13px] font-semibold bg-[#8b0000] text-white hover:bg-[#6e0000] transition-colors"
+          style={{ boxShadow: '0 0 14px rgba(139,0,0,0.45)' }}
         >
           Save
         </button>

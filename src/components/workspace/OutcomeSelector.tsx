@@ -29,7 +29,7 @@ export function OutcomeSelector() {
   const pillClass = (value: DesiredOutcome) =>
     `px-3 py-2 rounded-[8px] border text-[14px] font-medium transition-all duration-150 cursor-pointer text-left ${
       desiredOutcome === value
-        ? 'bg-[rgba(232,56,42,0.12)] border-[rgba(232,56,42,0.35)] text-[#e8382a]'
+        ? 'bg-[rgba(139,0,0,0.18)] border-[rgba(139,0,0,0.45)] text-[#8b0000]'
         : 'bg-[#111111] border-[#1e1e1e] text-[#888888] hover:border-[#2a2a2a] hover:text-[#bbbbbb]'
     }`;
 
